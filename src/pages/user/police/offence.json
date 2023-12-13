@@ -1,0 +1,67 @@
+[
+     
+        {
+            "id": "1",
+            "address": "9400 GLACIER HWY SUITE 1",
+            "name":"Smith Martinez",
+            "phone": "9049352111",
+            "dateofbirth": "05/25/2022",
+            "race":"White",
+            "sex":"Male",
+            "hair":"Straight",
+            "eyes":"Violet",
+            "eht":"White People",
+            "occupation":"Marketing Specialist",
+            "employer":"Cisco System",
+            "driverselic":"A0002144",
+            "socialsecurity":"999-04-1234"
+        },
+        {
+            "id": "2",
+            "address": "3576 AIRPORT WAY UNIT 9 ",
+            "name":"Jhonsan Hernandez",
+            "phone": "9049352222",
+            "dateofbirth": "05/25/2022",
+            "race":"Native Americans and Alaska Natives",
+            "sex":"Female",
+            "hair":"Wavy",
+            "eyes":"Hazel",
+            "eht":"Hispanic",
+            "occupation":"Office Cleark",
+            "employer":"SBI",
+            "driverselic":"A0002144",
+            "socialsecurity":"999-04-1234"
+        },
+        {
+            "id": "3",
+            "address": "356 OLD STEESE HWY",
+            "name":"Willams Thomas",
+            "phone": "9049352333",
+            "dateofbirth": "05/25/2022",
+            "race":"Black or African American",
+            "sex":"Female",
+            "hair":"Curly",
+            "eyes":"Blue",
+            "eht":"Latino",
+            "occupation":"Sales associate",
+            "employer":"T Mobile",
+            "driverselic":"A0002144",
+            "socialsecurity":"999-04-1234"
+        },
+        {
+            "id": "4",
+            "address": "71 ST. NICHOLAS DRIVE",
+            "name":"Lopez Taylor",
+            "phone": "9049352444",
+            "dateofbirth": "05/25/2022",
+            "race":"Asian",
+            "sex":"Other",
+            "hair":"Coily",
+            "eyes":"Black",
+            "eht":"Black People",
+            "occupation":"Cashier",
+            "employer":"Local Mutual Bank",
+            "driverselic":"A0002144",
+            "socialsecurity":"999-04-1234"
+        }
+]
