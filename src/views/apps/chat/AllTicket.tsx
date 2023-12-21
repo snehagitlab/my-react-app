@@ -26,15 +26,15 @@ import Search from 'src/assets/Images/user_Icons/light/search-normal.png'
 import TablePagination from '@mui/material/TablePagination'
 
 //  Config file
-import { API_PATHS,SOCKET_TICKET_REFRESH } from 'src/config/api.config'
+import { API_PATHS, SOCKET_TICKET_REFRESH } from 'src/config/api.config'
 
 //import context
-import TicketContext from 'src/context/TicketProvider'
+import TicketContext from '../context/TicketProvider'
 import { socket } from 'src/views/apps/chat/chatContent/SocketConnection'
 
 //env file
-const BASE_URL = process.env.REACT_APP_BASE_URL
-const API_VERSION = process.env.REACT_APP_API_VERSION
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL
+const API_VERSION = import.meta.env.VITE_APP_API_VERSION
 
 const PendingTickets = () => {
   //  hook
@@ -83,7 +83,7 @@ const PendingTickets = () => {
       setresponse(socket)
     });
   }, []);
-  
+
   const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
   const loggedInUserId = user.data.userId
 
@@ -91,23 +91,20 @@ const PendingTickets = () => {
     if (response?.type == SOCKET_TICKET_REFRESH.NEW_TICKET_CREATED && response?.data) {
 
       console.log(response?.data?.to)
-      if(loggedInUserId == response?.data?.to)
-      {
+      if (loggedInUserId == response?.data?.to) {
         fetchAllTicketsData()
         countTicket()
       }
     }
     if (response?.type == SOCKET_TICKET_REFRESH.NEW_TICKET_UPDATED && response?.data) {
 
-      if(loggedInUserId == response?.data?.to)
-      {
-          fetchAllTicketsData()
-          countTicket()
+      if (loggedInUserId == response?.data?.to) {
+        fetchAllTicketsData()
+        countTicket()
       }
-      if(loggedInUserId == response?.data?.newTo && response?.data?.to != response?.data?.newTo)
-      {
-          fetchAllTicketsData()
-          countTicket()
+      if (loggedInUserId == response?.data?.newTo && response?.data?.to != response?.data?.newTo) {
+        fetchAllTicketsData()
+        countTicket()
       }
     }
   }, [response])
@@ -153,42 +150,16 @@ const PendingTickets = () => {
 
   // ticket listing api call
   const fetchAllTicketsData = async () => {
-       if (urlStatus === undefined) {
+    if (urlStatus === undefined) {
 
-    setLoading(true)
+      setLoading(true)
 
-    const url = new URL(
-      `${BASE_URL}/${API_VERSION}/${API_PATHS.ticket}`
-    )
-    const params: any = { pageNumber: page + 1, recordsPerPage: rowsPerPage, search: JSON.stringify({ "title": searching }) }
-    Object.keys(params).forEach((key: any) => url.searchParams.append(key, params[key]))
-    const UserData: any = JSON.parse(localStorage.getItem('user1Data') || '{}')
-    const response = await fetch(url.toString(), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${UserData.token}`
-      }
-    })
-    if (response.status === 200) {
-      setLoading(false)
-      const result = await response.json()
-      setAllData(result.payload.data)
-      setRecord(result?.pager?.totalRecords)
-    }
-
-    } else {
-      if(rowsPerPage > 0 ) 
-      {
-        setLoading(true)
-       const url = new URL(
+      const url = new URL(
         `${BASE_URL}/${API_VERSION}/${API_PATHS.ticket}`
       )
-      const params: any = { pageNumber: page + 1, recordsPerPage: rowsPerPage, search: `{"title":"${searching}"${urlStatus},"categoryId":1}`}
-      Object.keys(params).forEach((key: any) => url.searchParams.append(key, params[key])) 
+      const params: any = { pageNumber: page + 1, recordsPerPage: rowsPerPage, search: JSON.stringify({ "title": searching }) }
+      Object.keys(params).forEach((key: any) => url.searchParams.append(key, params[key]))
       const UserData: any = JSON.parse(localStorage.getItem('user1Data') || '{}')
-
       const response = await fetch(url.toString(), {
         method: 'GET',
         headers: {
@@ -198,12 +169,37 @@ const PendingTickets = () => {
         }
       })
       if (response.status === 200) {
-         setLoading(false)
+        setLoading(false)
         const result = await response.json()
-        setAllData(result?.payload?.data)
+        setAllData(result.payload.data)
         setRecord(result?.pager?.totalRecords)
       }
-    }
+
+    } else {
+      if (rowsPerPage > 0) {
+        setLoading(true)
+        const url = new URL(
+          `${BASE_URL}/${API_VERSION}/${API_PATHS.ticket}`
+        )
+        const params: any = { pageNumber: page + 1, recordsPerPage: rowsPerPage, search: `{"title":"${searching}"${urlStatus},"categoryId":1}` }
+        Object.keys(params).forEach((key: any) => url.searchParams.append(key, params[key]))
+        const UserData: any = JSON.parse(localStorage.getItem('user1Data') || '{}')
+
+        const response = await fetch(url.toString(), {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${UserData.token}`
+          }
+        })
+        if (response.status === 200) {
+          setLoading(false)
+          const result = await response.json()
+          setAllData(result?.payload?.data)
+          setRecord(result?.pager?.totalRecords)
+        }
+      }
     }
   }
 
@@ -222,9 +218,9 @@ const PendingTickets = () => {
     const result = await response.json()
     if (result.status === 200) {
       if (result.payload.typeWise.length > 0) {
-       setCount(result.payload)
+        setCount(result.payload)
       }
-      else { setCount({pending: 0, all: 0, typeWise: [{"categoryId":1,"count":0}], dueToday: 0, myTicket: 0, onPriority: 0})}
+      else { setCount({ pending: 0, all: 0, typeWise: [{ "categoryId": 1, "count": 0 }], dueToday: 0, myTicket: 0, onPriority: 0 }) }
     }
   }
   useEffect(() => {
@@ -366,7 +362,7 @@ const PendingTickets = () => {
                     className='filtering-badge'
                     color='primary'
                   />
-                 </Button>
+                </Button>
               </Grid>
               <Grid item md={2} sx={{ textAlign: 'center', display: { md: 'block', sm: 'none', xs: 'none' } }}>
                 <Button
@@ -400,7 +396,7 @@ const PendingTickets = () => {
                   ></Badge>
                 </Button>
               </Grid>
-             {/*  <Grid item md={2} sx={{ textAlign: 'center', display: { md: 'block', sm: 'none', xs: 'none' } }}>
+              {/*  <Grid item md={2} sx={{ textAlign: 'center', display: { md: 'block', sm: 'none', xs: 'none' } }}>
                 <Button
                   onClick={handleClick}
                   name='6'
@@ -474,7 +470,7 @@ const PendingTickets = () => {
                       ></Badge>
                     </MenuItem>
 
-                   {/*  <MenuItem value='on priority' id='6' onClick={handleClickdueToday}>
+                    {/*  <MenuItem value='on priority' id='6' onClick={handleClickdueToday}>
                       On Priority <Badge badgeContent={count && count.onPriority > 0 ? count.onPriority : '0'} className='filtering-badge' color='primary'></Badge>
                     </MenuItem> */}
                   </Select>

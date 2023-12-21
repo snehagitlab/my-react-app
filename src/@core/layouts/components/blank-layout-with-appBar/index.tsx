@@ -10,7 +10,7 @@ import { styled, useTheme } from '@mui/material/styles'
 import Logo from 'src/assets/Images/logo.png'
 
 // ** Configs
-import themeConfig from 'src/configs/themeConfig'
+import themeConfig from '../configs/themeConfig'
 
 const StyledLink = styled('a')(({ theme }) => ({
   display: 'flex',

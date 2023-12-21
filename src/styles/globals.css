@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: Mazzard;
   src: url(/src/assets/Fonts/MazzardM-Medium.otf);
@@ -159,8 +163,8 @@ HORIZONTAL LAYOUT
 .main-div {
   width: 458.69px;
 }
-.signup-div
-{
+
+.signup-div {
   width: 658.69px;
   display: flex;
   justify-content: center;
@@ -168,8 +172,7 @@ HORIZONTAL LAYOUT
 }
 
 
-.user-agent-modal .css-wld9et .css-14pu62k-MuiPaper-root-MuiCard-root
- {
+.user-agent-modal .css-wld9et .css-14pu62k-MuiPaper-root-MuiCard-root {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -522,8 +525,8 @@ input::-webkit-inner-spin-button {
 .antd-textfield.ant-mentions .rc-textarea {
   min-height: 46px !important;
   padding: 11px 11px !important;
- 
- /*  border: 1px solid lightgray; */
+
+  /*  border: 1px solid lightgray; */
 
 }
 
@@ -782,7 +785,7 @@ LOGIN PAGE RESPONSIVE
 .videcallIcon {
   width: 22px;
   height: 22px;
-  margin-top:3px;
+  margin-top: 3px;
 }
 
 .user-text {
@@ -926,8 +929,8 @@ LOGIN PAGE RESPONSIVE
 .MuiBox-root.css-xwmm90 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-left: 0rem; 
-   padding-right: 1rem; 
+  padding-left: 0rem;
+  padding-right: 1rem;
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -979,54 +982,59 @@ LOGIN PAGE RESPONSIVE
   max-height: 100%;
 }
 
- /* Import User and Agent */
-.import-user-agent-modal .css-1dvl2z6
-{
+/* Import User and Agent */
+.import-user-agent-modal .css-1dvl2z6 {
   left: 50% !important;
   top: 50%;
   transform: translate(-50%, -50%);
 }
- /* Reset Password */
 
-.reset-password-modal .css-14pu62k-MuiPaper-root-MuiCard-root
-{
+/* Reset Password */
+
+.reset-password-modal .css-14pu62k-MuiPaper-root-MuiCard-root {
   left: 50% !important;
   top: 50%;
   transform: translate(-50%, -50%);
 }
- /* Add User and Agent */
-.css-wld9et
-{
+
+/* Add User and Agent */
+.css-wld9et {
   left: 50% !important;
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
 .slide-right {
   animation: 2s slide-right;
 
 }
+
 @keyframes slide-right {
   from {
     margin-top: -100%;
   }
+
   to {
     margin-top: 0%;
   }
 }
+
 .iframe-container {
   overflow: hidden;
   /* 16:9 aspect ratio */
   padding-top: 56.25%;
   position: relative;
 }
+
 .iframe-container iframe {
-   border: 0;
-   height: 100%;
-   left: 0;
-   position: absolute;
-   top: 0;
-   width: 100%;
+  border: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
+
 .welcome-dashboard-container img {
   border: 0;
   height: 100%;
@@ -1035,48 +1043,53 @@ LOGIN PAGE RESPONSIVE
   top: 0;
   width: 100%;
 }
+
 @media screen and (max-width: 768px) {
-  .signuptext{
+  .signuptext {
     display: none;
   }
-  .content-center
-  {
-    background-image: linear-gradient(#2d4acd 50%,#FFF 50%)!important;
+
+  .content-center {
+    background-image: linear-gradient(#2d4acd 50%, #FFF 50%) !important;
 
   }
-  .logoStylesignup{
+
+  .logoStylesignup {
     display: flex;
     align-items: center;
     justify-content: center !important;
-    padding: 5px;  
-}
+    padding: 5px;
+  }
 
 }
-.upgradeButton:hover 
-{
-  background-color:#FE5452!important;
+
+.upgradeButton:hover {
+  background-color: #FE5452 !important;
   color: white;
-  box-shadow:#FE5452 10px 6px 20px -8px ;
-  scale:1.08;
+  box-shadow: #FE5452 10px 6px 20px -8px;
+  scale: 1.08;
   transition: all;
   transition-duration: 100ms !important;
 }
-.upgradeButtonCircle:hover{
-  background-color:#FE5651!important;
+
+.upgradeButtonCircle:hover {
+  background-color: #FE5651 !important;
   color: white;
 }
-.logOut:hover{
+
+.logOut:hover {
   color: #2D4ACD !important
 }
-.upgradeButtonCircle
-{
+
+.upgradeButtonCircle {
   min-width: 42px !important;
   height: 40px !important;
   border-radius: 50% !important;
   padding: 0 !important;
 
 }
-.CategoryOption:hover{
+
+.CategoryOption:hover {
   display: none !important;
 }
 
@@ -1090,41 +1103,44 @@ LOGIN PAGE RESPONSIVE
   display: none !important;
 }
 
-.icon-category-menu
-{
+.icon-category-menu {
   display: none !important;
   left: 100px;
-  transition : 1s;
+  transition: 1s;
 }
+
 .category-menu:hover .icon-category-menu {
   display: block !important;
-  transition:1s;
+  transition: 1s;
   left: 0px;
 }
+
 #zmmtg-root {
   display: none;
 }
+
 .slide-right-search {
   animation: 1s slide-right-search;
 
 }
+
 @keyframes slide-right-search {
   from {
     margin-right: -100%;
   }
+
   to {
     margin-left: 0%;
   }
 }
 
-.Chat-input
-{
+.Chat-input {
   overflow-y: scroll;
 
 }
 
-a.Kbredirection{
-  color:#fff;
+a.Kbredirection {
+  color: #fff;
 }
 
 /* main {

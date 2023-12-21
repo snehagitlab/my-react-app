@@ -19,11 +19,11 @@ import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
 
 // ** Configs Import
-import themeConfig from 'src/configs/themeConfig'
+import themeConfig from '../configs/themeConfig'
 
 // ** Types
-import { NavGroup } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
+import { NavGroup } from '../@core/layouts/types'
+import { Settings } from '../@core/context/settingsContext'
 
 // ** Custom Components Imports
 import VerticalNavItems from './VerticalNavItems'

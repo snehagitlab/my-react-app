@@ -35,39 +35,40 @@ const ChatState = (props: any) => {
   }
 
   //chat conversation UUID
-  const [UUID , setUUID] = useState<any>('')
-  
+  const [UUID, setUUID] = useState<any>('')
+
   //set connection after login and used in chat 
   const [socketConnection, setSocketConnection] = useState('')
 
   //call conversation list update for new message arrive from other agent 
-  const [refreshConversationList,setrefreshConversationList] =useState<any>(false)
+  const [refreshConversationList, setrefreshConversationList] = useState<any>(false)
 
 
   //check First Agent Id in conversation List
-  const[checkFirstAgentID , setcheckFirstAgentID] = useState(0)
+  const [checkFirstAgentID, setcheckFirstAgentID] = useState(0)
 
   //default user dashboard display after state change display chat Ui
-  const[displayChat, setdisplayChatUi] = useState(false)
+  const [displayChat, setdisplayChatUi] = useState(false)
 
   //setUnRead Count To zero
-  const[handleAgentListUnreadCount, sethandleAgentListUnreadCount] = useState(false)
+  const [handleAgentListUnreadCount, sethandleAgentListUnreadCount] = useState(false)
 
   //call conversation api if handleAgentListUnreadCount is true
-  const[handleCallConvList, sethandleCallConvList] = useState(false)
+  const [handleCallConvList, sethandleCallConvList] = useState(false)
 
- //because of unread count not updated
- const[previousAgentIdState, setPreviousAgentIdState] = useState<any>([])
- const[previousAgentId, setPreviousAgentId] = useState<any>()
- 
- //set Page for message
- const [page, setPage] = React.useState(1) 
+  //because of unread count not updated
+  const [previousAgentIdState, setPreviousAgentIdState] = useState<any>([])
+  const [previousAgentId, setPreviousAgentId] = useState<any>()
 
- //Message List Array
- const [msgConversation, setMsgConversation] = useState<any>()
+  //set Page for message
+  const [page, setPage] = React.useState(1)
 
- const[onlineStatus, setOnlineStatus] = useState<any>()
- const[ScrollerPageVisible, setScrollerPageVisible] = useState(false)
+  //Message List Array
+  const [msgConversation, setMsgConversation] = useState<any>()
+
+  const [onlineStatus, setOnlineStatus] = useState<any>()
+  const [ScrollerPageVisible, setScrollerPageVisible] = useState(false)
+
 
   return (
     <>
@@ -86,31 +87,31 @@ const ChatState = (props: any) => {
           handleUserUpdateClose,
           UUID,
           setUUID,
-          socketConnection, 
+          socketConnection,
           setSocketConnection,
           refreshConversationList,
           setrefreshConversationList,
-          checkFirstAgentID , 
+          checkFirstAgentID,
           setcheckFirstAgentID,
-          displayChat, 
+          displayChat,
           setdisplayChatUi,
-          handleAgentListUnreadCount, 
+          handleAgentListUnreadCount,
           sethandleAgentListUnreadCount,
-          handleCallConvList, 
+          handleCallConvList,
           sethandleCallConvList,
-          previousAgentId, 
+          previousAgentId,
           setPreviousAgentId,
-          page, 
+          page,
           setPage,
-          msgConversation, 
+          msgConversation,
           setMsgConversation,
-          onlineStatus, 
+          onlineStatus,
           setOnlineStatus,
-          ScrollerPageVisible, 
+          ScrollerPageVisible,
           setScrollerPageVisible,
-          previousAgentIdState, 
+          previousAgentIdState,
           setPreviousAgentIdState
-          }}
+        }}
       >
         {props.children}
       </ChatContext.Provider>

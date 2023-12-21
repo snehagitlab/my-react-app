@@ -1,11 +1,8 @@
 import * as React from 'react'
 import { useState } from 'react'
-import OrganisationContext from './OrganisationProvider'
 import TicketContext from './TicketProvider'
 
 const TicketState = (props: any) => {
-  const { setvictimCount, setwitnessCount, setsuspectCount, setpropertyCount } =
-    React.useContext<any>(OrganisationContext)
   const [agentList, setAgentList] = useState([])
   const [agent, setAgent] = useState()
   const [createTicketResponse, setCreateTicketResponse] = useState()
@@ -77,7 +74,7 @@ const TicketState = (props: any) => {
       ...defaultStyle,
       right: '0'
     })
-   document.title = 'Tickets - Gogtas'
+    document.title = 'Tickets - Gogtas'
 
   }
 
@@ -96,7 +93,7 @@ const TicketState = (props: any) => {
     setOffenceTabId(1)
     setOffenceTabNameActive('victim-info')
 
-    
+
   }
 
   //offence ticket slider close
@@ -108,10 +105,7 @@ const TicketState = (props: any) => {
     setaddwitnessData([])
     setaddsuspectData([])
     setaddpropertyData([])
-    setvictimCount(0)
-    setwitnessCount(0)
-    setsuspectCount(0)
-    setpropertyCount(0)
+
 
   }
 
@@ -169,16 +163,16 @@ const TicketState = (props: any) => {
 
   //arrest report context
   const [arrestreport, setArrestReport] = React.useState(false);
- 
+
   //Refresh CommonInputField Componene
   const [CommonInputFieldshow, setCommonInputFieldShow] = React.useState<any>(false)
 
   //After Delete Ticket  in Listing
   const [deleteTicketListing, setDeleteTicketlisting] = React.useState<any>(false)
-  
+
   //Refress Support Ticket
   const [refreshSupportTicket, setRefreshSupportTicket] = React.useState(false)
- 
+
   //Refresh sidebarLeft and Active support after update profile pic
   const [updateuserProfile, setupdateuserProfile] = React.useState(false)
 
@@ -299,17 +293,17 @@ const TicketState = (props: any) => {
           setDeleteTicket,
           arrestreport,
           setArrestReport,
-          CommonInputFieldshow, 
+          CommonInputFieldshow,
           setCommonInputFieldShow,
-          deleteTicketListing, 
+          deleteTicketListing,
           setDeleteTicketlisting,
-          refreshSupportTicket, 
+          refreshSupportTicket,
           setRefreshSupportTicket,
-          updateuserProfile, 
+          updateuserProfile,
           setupdateuserProfile,
-          agentDetails, 
+          agentDetails,
           setAgentDetails,
-         
+
         }}
       >
         {props.children}

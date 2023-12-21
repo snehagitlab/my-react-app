@@ -12,10 +12,10 @@ import { styled } from '@mui/material/styles'
 import Close from 'mdi-material-ui/Close'
 import CircleOutline from 'mdi-material-ui/CircleOutline'
 import RecordCircleOutline from 'mdi-material-ui/RecordCircleOutline'
-import Logo from 'src/@core/components/logo'
+import Logo from '../@core/components/logo'
 
 // ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
+import { Settings } from '../@core/context/settingsContext'
 
 interface Props {
   hidden: boolean

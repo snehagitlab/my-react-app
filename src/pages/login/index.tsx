@@ -29,11 +29,11 @@ import {
 import { EyeOutline, EyeOffOutline } from 'mdi-material-ui'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_PATHS } from 'src/config/api.config'
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 //env file
-const API_VERSION = process.env.REACT_APP_API_VERSION
-const BASE_URL_PUBLIC = process.env.REACT_APP_BASE_URL_PUBLIC
+const API_VERSION = import.meta.env.VITE_APP_API_VERSION
+const BASE_URL_PUBLIC = import.meta.env.VITE_APP_BASE_URL_PUBLIC
 
 // ** Layout Import
 
@@ -98,170 +98,170 @@ const LoginPage = () => {
 
   return (
     <> <Helmet>
-    <title>Login-Gogtas</title>
-    <meta name="description" content="Login" />
+      <title>Login-Gogtas</title>
+      <meta name="description" content="Login" />
     </Helmet>
-    <Box
-      className='content-center'
-      sx={{
-        backgroundImage: `linear-gradient(${theme.palette.primary.main} 50%,#FFF 50%)`,
-        color: 'darkred',
-        position: 'relative'
-      }}
-    >
-      <img alt="login-shadow" src={loginshadow} className='login-img' />
-      <Box className='main-div'>
-        <Stack>
-          <Typography
-            sx={{
-              fontWeight: '600',
-              fontSize: { xs: '40px', sm: '45px', md: '50px' },
-              textAlign: 'left',
-              color: 'white',
-              fontFamily: 'Mazzard-regular'
-            }}
-          >
-            Welcome back
-          </Typography>
-          <Typography
-            sx={{
-              color: '#D5DBF5',
-              weight: '400',
-              fontSize: { xs: '20px', sm: '24px', md: '24px' },
-              lineHeight: '38px',
-              fontFamily: 'Mazzard-regular'
-            }}
-          >
-            Welcome back! Please enter your details.
-          </Typography>
-        </Stack>
-
-        <Card sx={{ mt: 5, pt: 5, pb: 5, borderRadius: '11px' }}>
-          <CardContent
-            className='form-main-div'
-            sx={{
-              pt: 10,
-              pl: 5,
-              pr: 5
-            }}
-          >
-            {/* ERROR COMPONENT */}
-            {error.status && (
-              <Box sx={{ mb: 10, position: 'absolute', bottom: 10, right: 20, m: 5 }}>
-                <Alert severity='error' sx={{ width: 300 }}>
-                  <AlertTitle>Error</AlertTitle>
-                  {error.msg}
-                </Alert>
-              </Box>
-            )}
-            <form
-              noValidate
-              autoComplete='off'
-              onSubmit={formik.handleSubmit}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center'
+      <Box
+        className='content-center'
+        sx={{
+          backgroundImage: `linear-gradient(${theme.palette.primary.main} 50%,#FFF 50%)`,
+          color: 'darkred',
+          position: 'relative'
+        }}
+      >
+        <img alt="login-shadow" src={loginshadow} className='login-img' />
+        <Box className='main-div'>
+          <Stack>
+            <Typography
+              sx={{
+                fontWeight: '600',
+                fontSize: { xs: '40px', sm: '45px', md: '50px' },
+                textAlign: 'left',
+                color: 'white',
+                fontFamily: 'Mazzard-regular'
               }}
             >
-              <FormControl fullWidth sx={{ mb: 10 }}>
-                <InputLabel htmlFor='email' >
-                  Email*
-                </InputLabel>
-                <OutlinedInput
-                  sx={{ height: '60px', color: 'rgba(27, 11, 43, 0.79)', fontSize: '17px' }}
-                  autoFocus
-                  label='Email'
-                  id='email'
-                  className='admin-login'
-                  placeholder='email123'
-                  value={formik.values.email}
-                  fullWidth
-                  onBlur={formik.handleBlur}
-                  onChange={event => {
-                    event.target.value = event.target.value.trim()
-                    formik.handleChange(event)
-                  }}
-                  error={Boolean(formik.errors.email && formik.touched.email)}
-                />
-                {formik.errors.email && formik.touched.email && (
-                  <FormHelperText sx={{ color: 'error.main', fontSize: '15px !important' }}>
-                    {formik.errors.email}
-                  </FormHelperText>
-                )}
-              </FormControl>
-              <FormControl fullWidth sx={{ mb: 1 }}>
-                <InputLabel htmlFor='password'>
-                  Password*
-                </InputLabel>
-                <OutlinedInput
-                  sx={{ height: '60px', color: 'rgba(27, 11, 43, 0.79)', fontSize: '17px' }}
-                  value={formik.values.password}
-                  label='Password'
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  fullWidth
-                  placeholder='password'
-                  className='admin-login'
-                  id='password'
-                  error={Boolean(formik.errors.password && formik.touched.password)}
-                  type={showPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        edge='end'
-                        onMouseDown={e => e.preventDefault()}
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? <EyeOutline /> : <EyeOffOutline />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-                {formik.errors.password && formik.touched.password && (
-                  <FormHelperText sx={{ color: 'error.main', fontSize: '15px !important' }} id=''>
-                    {formik.errors.password}
-                  </FormHelperText>
-                )}
-              </FormControl>
-              <p style={{ textAlign: 'right', width: '100%' }}>
-                <Link
-                  to='/userForgotPassword'
-                  style={{
-                    textDecoration: 'none',
-                    color: '#2d4acd',
-                    fontSize: '15px',
-                    fontWeight: '500',
-                    fontFamily: 'Mazzard'
-                  }}
-                >
-                  Forgot Password?
-                </Link>
-              </p>
+              Welcome back
+            </Typography>
+            <Typography
+              sx={{
+                color: '#D5DBF5',
+                weight: '400',
+                fontSize: { xs: '20px', sm: '24px', md: '24px' },
+                lineHeight: '38px',
+                fontFamily: 'Mazzard-regular'
+              }}
+            >
+              Welcome back! Please enter your details.
+            </Typography>
+          </Stack>
 
-              <Button
-                size='large'
-                type='submit'
-                variant='contained'
-                sx={{
-                  textTransform: 'capitalize',
-                  width: '140.21px !important',
-                  height: '60px',
-                  padding: '10px !important',
-                  marginTop: '36px',
-                  borderRadius: '9px',
-                  fontSize: '16px'
+          <Card sx={{ mt: 5, pt: 5, pb: 5, borderRadius: '11px' }}>
+            <CardContent
+              className='form-main-div'
+              sx={{
+                pt: 10,
+                pl: 5,
+                pr: 5
+              }}
+            >
+              {/* ERROR COMPONENT */}
+              {error.status && (
+                <Box sx={{ mb: 10, position: 'absolute', bottom: 10, right: 20, m: 5 }}>
+                  <Alert severity='error' sx={{ width: 300 }}>
+                    <AlertTitle>Error</AlertTitle>
+                    {error.msg}
+                  </Alert>
+                </Box>
+              )}
+              <form
+                noValidate
+                autoComplete='off'
+                onSubmit={formik.handleSubmit}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
               >
-                Sign in
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+                <FormControl fullWidth sx={{ mb: 10 }}>
+                  <InputLabel htmlFor='email' >
+                    Email*
+                  </InputLabel>
+                  <OutlinedInput
+                    sx={{ height: '60px', color: 'rgba(27, 11, 43, 0.79)', fontSize: '17px' }}
+                    autoFocus
+                    label='Email'
+                    id='email'
+                    className='admin-login'
+                    placeholder='email123'
+                    value={formik.values.email}
+                    fullWidth
+                    onBlur={formik.handleBlur}
+                    onChange={event => {
+                      event.target.value = event.target.value.trim()
+                      formik.handleChange(event)
+                    }}
+                    error={Boolean(formik.errors.email && formik.touched.email)}
+                  />
+                  {formik.errors.email && formik.touched.email && (
+                    <FormHelperText sx={{ color: 'error.main', fontSize: '15px !important' }}>
+                      {formik.errors.email}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+                <FormControl fullWidth sx={{ mb: 1 }}>
+                  <InputLabel htmlFor='password'>
+                    Password*
+                  </InputLabel>
+                  <OutlinedInput
+                    sx={{ height: '60px', color: 'rgba(27, 11, 43, 0.79)', fontSize: '17px' }}
+                    value={formik.values.password}
+                    label='Password'
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    fullWidth
+                    placeholder='password'
+                    className='admin-login'
+                    id='password'
+                    error={Boolean(formik.errors.password && formik.touched.password)}
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                      <InputAdornment position='end'>
+                        <IconButton
+                          edge='end'
+                          onMouseDown={e => e.preventDefault()}
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <EyeOutline /> : <EyeOffOutline />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                  {formik.errors.password && formik.touched.password && (
+                    <FormHelperText sx={{ color: 'error.main', fontSize: '15px !important' }} id=''>
+                      {formik.errors.password}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+                <p style={{ textAlign: 'right', width: '100%' }}>
+                  <Link
+                    to='/userForgotPassword'
+                    style={{
+                      textDecoration: 'none',
+                      color: '#2d4acd',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      fontFamily: 'Mazzard'
+                    }}
+                  >
+                    Forgot Password?
+                  </Link>
+                </p>
+
+                <Button
+                  size='large'
+                  type='submit'
+                  variant='contained'
+                  sx={{
+                    textTransform: 'capitalize',
+                    width: '140.21px !important',
+                    height: '60px',
+                    padding: '10px !important',
+                    marginTop: '36px',
+                    borderRadius: '9px',
+                    fontSize: '16px'
+                  }}
+                >
+                  Sign in
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </Box>
       </Box>
-    </Box>
-    </> 
+    </>
   )
 }
 

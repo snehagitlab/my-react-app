@@ -2,7 +2,7 @@
 import { IconHome, IconSettings, IconNotification, IconUser, IconSmartHome } from '@tabler/icons'
 
 // ** Type import
-import { HorizontalNavItemsType } from 'src/@core/layouts/types'
+import { HorizontalNavItemsType } from '../@core/layouts/types'
 
 const navigation = (): HorizontalNavItemsType => {
   return [

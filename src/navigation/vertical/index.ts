@@ -3,7 +3,7 @@
 import { IconHome, IconSettings, IconNotification, IconUser, IconSmartHome } from '@tabler/icons'
 
 // ** Type import
-import { VerticalNavItemsType } from 'src/@core/layouts/types'
+import { VerticalNavItemsType } from '../@core/layouts/types'
 
 const navigation = (): VerticalNavItemsType => {
   return [

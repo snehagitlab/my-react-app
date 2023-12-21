@@ -4,12 +4,8 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 import { ToastContainer } from 'react-toastify'
-import CreateTicket from 'src/views/apps/chat/CreateSupport'
-import OffenceTicket from 'src/views/apps/chat/CreateOffence'
-import SidebarLeft from 'src/views/apps/chat/sidebarLeft/SidebarLeft'
-import SidebarRight from 'src/views/apps/chat/SidebarRight'
-import UpdateUser from 'src/pages/user/auth/updateUser'
-import AllTicket from 'src/views/apps/chat/AllTicket'
+import SidebarLeft from '../views/apps/chat/sidebarLeft/SidebarLeft'
+import UpdateUser from '../pages/user/auth/updateUser'
 
 const Layout = () => {
   // const user1 = localStorage.getItem('user1Data') == null ? false : true
@@ -31,14 +27,11 @@ const Layout = () => {
         }}
       >
         <SidebarLeft />
-        <Box sx={{ width: { md: '56vw', sm: '100%', xs: '100%' } }}>
+        <Box sx={{ width: { md: '80vw', sm: '100%', xs: '100%' } }}>
           <Outlet />
         </Box>
-        <SidebarRight />
-        <CreateTicket />
-        <OffenceTicket />
         <UpdateUser />
-        <AllTicket />
+
 
         {/* <main>{user1 ? <Outlet /> : <Navigate to='/userlogin' />}</main> */}
       </Box>

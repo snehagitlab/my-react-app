@@ -6,7 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 
 // ** Layout Imports
 // !Do not remove this Layout import
-import Layout from 'src/@core/layouts/Layout'
+import Layout from '../@core/layouts/Layout'
 
 // ** Navigation Imports
 import VerticalNavItems from 'src/navigation/vertical'
@@ -21,7 +21,7 @@ import VerticalAppBarContent from './components/vertical/AppBarContent'
 import HorizontalAppBarContent from './components/horizontal/AppBarContent'
 
 // ** Hook Import
-import { useSettings } from 'src/@core/hooks/useSettings'
+import { useSettings } from '../@core/hooks/useSettings'
 
 const UserLayout = () => {
   // ** Hooks
@@ -44,40 +44,40 @@ const UserLayout = () => {
       saveSettings={saveSettings}
       {...(settings.layout === 'horizontal'
         ? {
-            // ** Navigation Items
-            horizontalNavItems: HorizontalNavItems(),
+          // ** Navigation Items
+          horizontalNavItems: HorizontalNavItems(),
 
-            // Uncomment the below line when using server-side menu in horizontal layout and comment the above line
-            // horizontalNavItems: ServerSideHorizontalNavItems(),
+          // Uncomment the below line when using server-side menu in horizontal layout and comment the above line
+          // horizontalNavItems: ServerSideHorizontalNavItems(),
 
-            // ** AppBar Content
-            horizontalAppBarContent: props => (
-              <HorizontalAppBarContent
-                hidden={hidden}
-                settings={settings}
-                saveSettings={saveSettings}
-                setShowBackdrop={props.setShowBackdrop}
-              />
-            )
-          }
+          // ** AppBar Content
+          horizontalAppBarContent: props => (
+            <HorizontalAppBarContent
+              hidden={hidden}
+              settings={settings}
+              saveSettings={saveSettings}
+              setShowBackdrop={props.setShowBackdrop}
+            />
+          )
+        }
         : {
-            // ** Navigation Items
-            verticalNavItems: VerticalNavItems(),
+          // ** Navigation Items
+          verticalNavItems: VerticalNavItems(),
 
-            // Uncomment the below line when using server-side menu in vertical layout and comment the above line
-            // verticalNavItems: ServerSideVerticalNavItems(),
+          // Uncomment the below line when using server-side menu in vertical layout and comment the above line
+          // verticalNavItems: ServerSideVerticalNavItems(),
 
-            // ** AppBar Content
-            verticalAppBarContent: props => (
-              <VerticalAppBarContent
-                hidden={hidden}
-                settings={settings}
-                saveSettings={saveSettings}
-                setShowBackdrop={props.setShowBackdrop}
-                toggleNavVisibility={props.toggleNavVisibility}
-              />
-            )
-          })}
+          // ** AppBar Content
+          verticalAppBarContent: props => (
+            <VerticalAppBarContent
+              hidden={hidden}
+              settings={settings}
+              saveSettings={saveSettings}
+              setShowBackdrop={props.setShowBackdrop}
+              toggleNavVisibility={props.toggleNavVisibility}
+            />
+          )
+        })}
     >
       <Outlet />
     </Layout>

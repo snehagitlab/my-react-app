@@ -32,7 +32,7 @@
 // import { StatusType, UserProfileLeftType } from 'src/types/apps/chatTypes'
 
 // // ** Custom Component Imports
-// import Sidebar from 'src/@core/components/sidebar'
+// import Sidebar from '../@core/components/sidebar'
 
 // const UserProfileLeft = (props: UserProfileLeftType) => {
 //   const {

@@ -19,12 +19,12 @@ import Typography, { TypographyProps } from '@mui/material/Typography'
 import PerfectScrollbarComponent from 'react-perfect-scrollbar'
 
 // ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
+import CustomChip from '../@core/components/mui/chip'
+import CustomAvatar from '../@core/components/mui/avatar'
 
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
-import { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
+import { Settings } from '../@core/context/settingsContext'
+import { CustomAvatarProps } from '../@core/components/mui/avatar/types'
 
 //import { Badge } from '@mui/material'
 
@@ -114,9 +114,9 @@ const NotificationDropdown = (props: Props) => {
   // ** Vars
   const { direction } = settings
 
- /*  const handleDropdownOpen = (event: SyntheticEvent) => {
-    setAnchorEl(event.currentTarget)
-  } */
+  /*  const handleDropdownOpen = (event: SyntheticEvent) => {
+     setAnchorEl(event.currentTarget)
+   } */
 
   const handleDropdownClose = () => {
     setAnchorEl(null)
@@ -134,7 +134,7 @@ const NotificationDropdown = (props: Props) => {
 
   return (
     <Fragment>
-     {/*  <Badge
+      {/*  <Badge
         overlap='circular'
         badgeContent={<BadgeContentSpan />}
         anchorOrigin={{

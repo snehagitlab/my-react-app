@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 
-// import TicketContext from 'src/context/TicketProvider'
+// import TicketContext from '../context/TicketProvider'
 
 import { Divider, List, ListItem, ListItemText, Drawer, Button } from '@mui/material'
 
@@ -23,28 +23,27 @@ import RightArrow from '../../../../assets/Images/user_Icons/light/rightArrow.sv
 import Toggle from '../../../../assets/Images/user_Icons/light/toggle.png'
 
 // ** Custom Components Import
-import MuiAvatar from 'src/@core/components/mui/avatar'
+import MuiAvatar from '../../../../@core/components/mui/avatar'
 
 // import chatlog
 
-import ChatLog from 'src/@core/components/chat-log'
-import ChatContent from './ChatContent' 
+import ChatLog from '../../../../@core/components/chat-log'
+import ChatContent from './ChatContent'
 
 //import UserDashboard from '../dashboard/UserDashboard'
-import ResponsiveToggle from 'src/assets/Images/user_Icons/light/Responsive Toggle.png'
-import ChatContext from 'src/context/ChatProvider'
-import TicketContext from 'src/context/TicketProvider'
+import ResponsiveToggle from '../../../../assets/Images/user_Icons/light/Responsive Toggle.png'
+import ChatContext from '../../../../context/ChatProvider'
+import TicketContext from '../../../../context/TicketProvider'
 import ActiveSupport from '../sidebarLeft/ActiveSupport'
-import TicketListing from '../TicketListing'
 import UserDashboard from '../dashboard/UserDashboard'
 
 // import CreateTicketBtn from '../sidebarLeft/CreateTicketBtn'
 
 const ChatContentIndex = () => {
-  
+
   const navigate = useNavigate()
-  const { setShowActiveSupport, showActiveSupport, getUserImg, handleUserUpdate,displayChat } = React.useContext<any>(ChatContext)
-  const { setShowopenTicket, showopenTicket, handleSliderOpen } = React.useContext<any>(TicketContext)
+  const { setShowActiveSupport, showActiveSupport, getUserImg, handleUserUpdate, displayChat } = React.useContext<any>(ChatContext)
+  const { showopenTicket } = React.useContext<any>(TicketContext)
 
   const [width, setWidth] = useState(window.innerWidth)
 
@@ -71,11 +70,11 @@ const ChatContentIndex = () => {
       toggleSlider()
     }
 
-    const handleShowOpenTicket = () => {
-      setShowopenTicket(true)
-      setShowActiveSupport(false)
-      toggleSlider()
-    }
+    // const handleShowOpenTicket = () => {
+    //   setShowopenTicket(true)
+    //   setShowActiveSupport(false)
+    //   toggleSlider()
+    // }
 
     //Responsive sidebar
     const sideList = () => (
@@ -147,7 +146,7 @@ const ChatContentIndex = () => {
           </ListItem>
           <Divider sx={{ margin: 0 }} />
 
-          <ListItem sx={{ padding: { xs: '20px 16px', sm: '27px 23px' } }}>
+          {/* <ListItem sx={{ padding: { xs: '20px 16px', sm: '27px 23px' } }}>
             <ListItemText className='responsive-toggle' primary='Add Room' />
             <IconButton size='small' sx={{ color: 'text.secondary' }}>
               <img src={RightArrow} alt='rightArrow' style={{ width: '33px', height: '33px' }} />
@@ -180,7 +179,7 @@ const ChatContentIndex = () => {
             <IconButton size='small' sx={{ color: 'text.secondary' }}>
               <img src={RightArrow} alt='rightArrow' style={{ width: '33px', height: '33px' }} />
             </IconButton>
-          </ListItem>
+          </ListItem> */}
           <Divider sx={{ margin: 0 }} />
         </List>
       </Box>
@@ -223,19 +222,19 @@ const ChatContentIndex = () => {
           </Grid>
         </Box>
 
-        
+
         {showActiveSupport && width < 900 ? (
           <ActiveSupport />
         ) : showopenTicket && width < 900 ? (
-          <TicketListing categoryId={2}/>
+          ""
         ) : displayChat ?
-        (
-        <><ChatContent />
-        <ChatLog /></>
-        )
-        : ( <UserDashboard />)
-        
-     }
+          (
+            <><ChatContent />
+              <ChatLog /></>
+          )
+          : (<UserDashboard />)
+
+        }
 
       </Box>
     )

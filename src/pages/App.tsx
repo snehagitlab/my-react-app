@@ -42,10 +42,7 @@ import Routes from '../routes'
 import '../styles/globals.css'
 
 import TicketState from '../context/TicketContext'
-import AdminState from '../context/AdminContext'
 import ChatState from '../context/ChatContext'
-import OrganisationState from '../context/OrganisationContext'
-import KnowledgeState from '../context/KnowledgeContext'
 
 
 const clientSideEmotionCache = createEmotionCache()
@@ -56,37 +53,31 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <AdminState>
-        <KnowledgeState>
-          <OrganisationState>
-            <TicketState>
-              <ChatState>
-                <CacheProvider value={clientSideEmotionCache}>
-                  <SettingsProvider>
-                    <SettingsConsumer>
-                      {({ settings }) => {
-                        return (
-                          <ThemeComponent settings={settings}>
-                            <WindowWrapper>
-                              <Routes />
-                            </WindowWrapper>
-                            <ReactHotToast>
-                              <Toaster
-                                position={settings.toastPosition}
-                                toastOptions={{ className: 'react-hot-toast' }}
-                              />
-                            </ReactHotToast>
-                          </ThemeComponent>
-                        )
-                      }}
-                    </SettingsConsumer>
-                  </SettingsProvider>
-                </CacheProvider>
-              </ChatState>
-            </TicketState>
-          </OrganisationState>
-        </KnowledgeState>
-      </AdminState>
+      <TicketState>
+        <ChatState>
+          <CacheProvider value={clientSideEmotionCache}>
+            <SettingsProvider>
+              <SettingsConsumer>
+                {({ settings }) => {
+                  return (
+                    <ThemeComponent settings={settings}>
+                      <WindowWrapper>
+                        <Routes />
+                      </WindowWrapper>
+                      <ReactHotToast>
+                        <Toaster
+                          position={settings.toastPosition}
+                          toastOptions={{ className: 'react-hot-toast' }}
+                        />
+                      </ReactHotToast>
+                    </ThemeComponent>
+                  )
+                }}
+              </SettingsConsumer>
+            </SettingsProvider>
+          </CacheProvider>
+        </ChatState>
+      </TicketState>
     </Provider>
   )
 }

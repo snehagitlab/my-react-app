@@ -8,13 +8,13 @@ import Box, { BoxProps } from '@mui/material/Box'
 import CircleOutline from 'mdi-material-ui/CircleOutline'
 
 // ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+import { hexToRGBA } from '../@core/utils/hex-to-rgba'
 
 // ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
+import CustomChip from '../@core/components/mui/chip'
 
 // ** Types
-import { CustomChipProps } from 'src/@core/components/mui/chip/types'
+import { CustomChipProps } from '../@core/components/mui/chip/types'
 import { PricingPlanProps } from './types'
 
 // ** Styled Component for the wrapper of whole component

@@ -8,7 +8,7 @@ import { useNavigate as useRouter } from 'react-router-dom'
 import axios from 'axios'
 
 // ** Config
-import authConfig from 'src/configs/auth'
+import authConfig from '../configs/auth'
 
 // ** Types
 import { AuthValuesType, RegisterParams, LoginParams, ErrCallbackType, UserDataType } from './types'

@@ -10,7 +10,7 @@ import { styled } from '@mui/material/styles'
 import Logo from 'src/assets/Images/logo.png'
 
 // ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
+import { Settings } from '../@core/context/settingsContext'
 
 // ** Theme Config Import
 

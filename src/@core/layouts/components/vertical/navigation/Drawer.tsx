@@ -13,8 +13,8 @@ import { List, ListItem, ListItemButton, ListItemIcon, Typography } from '@mui/m
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 // ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
-import Logo from 'src/@core/components/logo'
+import { Settings } from '../@core/context/settingsContext'
+import Logo from '../@core/components/logo'
 import { Box } from '@mui/system'
 
 import LogoutDarkIcon from 'src/assets/Images/Icons/dark/logout.svg'
@@ -49,14 +49,14 @@ import LayersLightIcon from 'src/assets/Images/Icons/light/ham_icon.svg'
 
 import HelpDarkIcon from 'src/assets/Images/Icons/light/help_light_icon.svg'
 import HelpActiveDarkIcon from 'src/assets/Images/Icons/dark/help_icon.svg'
-import { API_PATHS,KB_ACCESS } from 'src/config/api.config'
+import { API_PATHS, KB_ACCESS } from 'src/config/api.config'
 
 
 //env file
 
-const REACT_APP_SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
-const BASE_URL = process.env.REACT_APP_BASE_URL
-const API_VERSION = process.env.REACT_APP_API_VERSION
+const REACT_APP_SERVER_BASE_URL = import.meta.env.VITE_APP_SERVER_BASE_URL
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL
+const API_VERSION = import.meta.env.VITE_APP_API_VERSION
 
 interface Props {
   hidden: boolean
@@ -180,36 +180,36 @@ const Drawer = (props: Props) => {
     }
   }
 
-   const [KbAccess, setKbAccess] = useState('')
+  const [KbAccess, setKbAccess] = useState('')
 
   //KB Access or not using license API
   const handleGetFreeTrailCountOrg = async () => {
 
-     if(role === parseInt(USER_ROLE.ORG_ADMIN)){
-     
-    const url = new URL(`${BASE_URL}/${API_VERSION}/${API_PATHS.organisation}/${API_PATHS.license}/detail`)
-    const user = JSON.parse(localStorage.getItem('userData') || '{}')
-    try {
-      const response = await fetch(url.toString(), {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${user.token}`
-        }
-      })
-      const result = await response.json()
-  
-      if (result.status == 200) {
-        const data = result.payload.knowBaseAccess
-        setKbAccess(data)
+    if (role === parseInt(USER_ROLE.ORG_ADMIN)) {
+
+      const url = new URL(`${BASE_URL}/${API_VERSION}/${API_PATHS.organisation}/${API_PATHS.license}/detail`)
+      const user = JSON.parse(localStorage.getItem('userData') || '{}')
+      try {
+        const response = await fetch(url.toString(), {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${user.token}`
+          }
+        })
+        const result = await response.json()
+
+        if (result.status == 200) {
+          const data = result.payload.knowBaseAccess
+          setKbAccess(data)
         } else {
           const data = result.payload.knowBaseAccess
-          setKbAccess(data) 
+          setKbAccess(data)
         }
-    } catch (ex: any) { }
-  }
-  
+      } catch (ex: any) { }
+    }
+
   }
 
   useEffect(() => {
@@ -230,17 +230,17 @@ const Drawer = (props: Props) => {
   const drawerBgColor = () => {
     if (theme.palette.mode === 'light') {
       return {
-      //  backgroundColor: theme.palette.primary.light,
+        //  backgroundColor: theme.palette.primary.light,
         color: theme.palette.common.black
       }
     } else if (theme.palette.mode === 'dark') {
       return {
-       // backgroundColor: theme.palette.customColors.darkBg,
+        // backgroundColor: theme.palette.customColors.darkBg,
         color: theme.palette.common.white
       }
     } else {
       return {
-       // backgroundColor: theme.palette.primary.light
+        // backgroundColor: theme.palette.primary.light
       }
     }
   }
@@ -351,15 +351,15 @@ const Drawer = (props: Props) => {
       ]
     },
 
-   /*  {
-      id: 'template',
-      title: 'Template',
-      icon: !isDarkMode ? TemplateDarkIcon : TemplateLightIcon,
-      selectedIcon: TemplateLightIcon,
-      path: '/knowledge/template',
-      showSidebar: true
-    }, */
-    
+    /*  {
+       id: 'template',
+       title: 'Template',
+       icon: !isDarkMode ? TemplateDarkIcon : TemplateLightIcon,
+       selectedIcon: TemplateLightIcon,
+       path: '/knowledge/template',
+       showSidebar: true
+     }, */
+
     /* {
       id: 'notification',
       title: 'Notification',
@@ -398,7 +398,7 @@ const Drawer = (props: Props) => {
         menuItems.splice(i, 1)
       } else if (menuItems[i].id === 'settings') {
         menuItems.splice(i, 1)
-      } 
+      }
     }
   }
   if (role === parseInt(USER_ROLE.SUPPER_ADMIN)) {
@@ -416,8 +416,8 @@ const Drawer = (props: Props) => {
     }
   }
 
-  
- 
+
+
   else if (role === parseInt(USER_ROLE.ORG_ADMIN)) {
     for (let i = 0; i < menuItems.length; i++) {
       if (menuItems[i].id === 'masters') {
@@ -426,10 +426,11 @@ const Drawer = (props: Props) => {
         menuItems.splice(i, 1)
       } else if (menuItems[i].id === 'template') {
         menuItems.splice(i, 1)
-      } 
-  }}
+      }
+    }
+  }
 
-  if (role === parseInt(USER_ROLE.ORG_ADMIN) && (KbAccess == KB_ACCESS.NOACCESS) ) {
+  if (role === parseInt(USER_ROLE.ORG_ADMIN) && (KbAccess == KB_ACCESS.NOACCESS)) {
     for (let i = 0; i < menuItems.length; i++) {
       if (menuItems[i].id === 'knowledge') {
         menuItems.splice(i, 1)

@@ -32,8 +32,8 @@ import { useNavigate } from 'react-router-dom'
 import { API_PATHS } from 'src/config/api.config'
 
 //env file
-const API_VERSION = process.env.REACT_APP_API_VERSION
-const BASE_URL_PUBLIC = process.env.REACT_APP_BASE_URL_PUBLIC
+const API_VERSION = import.meta.env.VITE_APP_API_VERSION
+const BASE_URL_PUBLIC = import.meta.env.VITE_APP_BASE_URL_PUBLIC
 
 // ** Layout Import
 
@@ -45,7 +45,7 @@ const Signup = () => {
   const theme = useTheme()
 
   const navigate = useNavigate()
-  
+
   const schema = yup.object().shape({
     userEmail: yup.string().email().required('Email is required'),
     orgName: yup.string().min(3).required("This Field Requiered"),
@@ -71,17 +71,17 @@ const Signup = () => {
 
   const formik = useFormik({
     initialValues: {
-      orgTypeId:'',
-      orgName:'',
-      fname:'',
-      lname:'',
-      userEmail:'',
-      userPhone:''
+      orgTypeId: '',
+      orgName: '',
+      fname: '',
+      lname: '',
+      userEmail: '',
+      userPhone: ''
 
     },
 
-     validationSchema: schema,
-    
+    validationSchema: schema,
+
 
     onSubmit: () => {
       handleFreeTrail()
@@ -90,7 +90,7 @@ const Signup = () => {
 
   const handleFreeTrail = async () => {
     const url = new URL(`${BASE_URL_PUBLIC}/${API_VERSION}/${API_PATHS.free_trial_org}`)
-   
+
     const requestData = {}
     Object.assign(requestData, { orgTypeId: formik.values.orgTypeId })
     Object.assign(requestData, { orgName: formik.values.orgName })
@@ -104,7 +104,7 @@ const Signup = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-            Accept: 'application/json'
+          Accept: 'application/json'
         },
         body: JSON.stringify(requestData)
       })
@@ -113,14 +113,14 @@ const Signup = () => {
       if (result.status == 200) {
         localStorage.setItem('userRole', result.payload.data.userRole)
         localStorage.setItem('userData', JSON.stringify(result.payload))
-        navigate('/dashboard')     
+        navigate('/dashboard')
         formik.resetForm()
       } else {
         toast.error(result.message)
       }
     } catch (ex) {
       console.log(ex)
-    } 
+    }
 
   }
   const [OrgtypeList, setOrgTypeList] = useState<Array<any>>([])
@@ -150,43 +150,43 @@ const Signup = () => {
 
   return (
     <>
-     <Grid sx={{padding:'10px'}}>
-     <Grid container  sx={{display: 'flex',justifyContent:'center',  alignItems: 'center'}}>
-     <Grid item xs={12} md={6} lg={4} className='logoStylesignup'  sx={{ left:0}}>
-     <img alt="logo" src={LogoImage} style={{ height: '50px' }} />
+      <Grid sx={{ padding: '10px' }}>
+        <Grid container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Grid item xs={12} md={6} lg={4} className='logoStylesignup' sx={{ left: 0 }}>
+            <img alt="logo" src={LogoImage} style={{ height: '50px' }} />
 
+          </Grid>
+
+          <Grid item xs={12} md={6} lg={6} className='logoStylesignup' sx={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}
+          >
+            <Grid>
+              <Button
+                variant='contained'
+                size='large'
+                onClick={() => {
+                  navigate('/login')
+                }}
+                sx={{ textTransform: 'capitalize' }}
+              >
+                login as admin
+              </Button>
             </Grid>
-    
-      <Grid item xs={12} md={6} lg={6} className='logoStylesignup' sx={{display: 'flex',justifyContent:'end',  alignItems: 'center'}}
-     >
-      <Grid>
-          <Button
-            variant='contained'
-            size='large'
-            onClick={() => {
-              navigate('/login')
-            }}
-            sx={{ textTransform: 'capitalize' }}
-          >
-            login as admin
-          </Button>
-        </Grid>
-        <Grid>
-          <Button
-            variant='contained'
-            size='large'
-            sx={{ marginLeft: '20px', textTransform: 'capitalize' }}
-            onClick={() => {
-              navigate('/userLogin')
-            }}
-          >
-            login as user
-          </Button>
-        </Grid>
+            <Grid>
+              <Button
+                variant='contained'
+                size='large'
+                sx={{ marginLeft: '20px', textTransform: 'capitalize' }}
+                onClick={() => {
+                  navigate('/userLogin')
+                }}
+              >
+                login as user
+              </Button>
+            </Grid>
 
-     </Grid>
-     </Grid>
-     </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
       <Grid>
         <Box
           className='content-center'
@@ -194,12 +194,12 @@ const Signup = () => {
             backgroundImage: `linear-gradient(${theme.palette.primary.main} 70%,#2d4acd 30%)`,
             color: 'darkred',
 
-             position: 'relative'
+            position: 'relative'
           }}
         >
           <img alt="login-shadow" src={loginshadow} className='login-img' />
-          <Grid container sx={{ display: 'flex',justifyContent:'center',  alignItems: 'center' }}>
-            <Grid item xs={12} md={6} lg={4} className='signuptext'  sx={{ left:0}}>
+          <Grid container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Grid item xs={12} md={6} lg={4} className='signuptext' sx={{ left: 0 }}>
               <Typography
                 sx={{
                   fontWeight: '600',

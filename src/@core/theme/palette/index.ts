@@ -1,6 +1,6 @@
 // ** Type Imports
 import { PaletteMode } from '@mui/material'
-import { Skin, ThemeColor } from 'src/@core/layouts/types'
+import { Skin, ThemeColor } from '../@core/layouts/types'
 
 const DefaultPalette = (mode: PaletteMode, skin: Skin, themeColor: ThemeColor) => {
   // ** Vars
@@ -87,12 +87,12 @@ const DefaultPalette = (mode: PaletteMode, skin: Skin, themeColor: ThemeColor) =
       contrastText: '#FFF'
     },
 
-   /*  diabetes:{
-      light: '#1A7CC0',
-      main: '#1A7CC0',
-      dark: '#1A7CC0',
-      contrastText: '#FFF'
-    }, */
+    /*  diabetes:{
+       light: '#1A7CC0',
+       main: '#1A7CC0',
+       dark: '#1A7CC0',
+       contrastText: '#FFF'
+     }, */
 
     grey: {
       50: '#FAFAFA',

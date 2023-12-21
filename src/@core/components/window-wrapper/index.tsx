@@ -3,7 +3,7 @@ import { useState, useEffect, ReactNode } from 'react'
 
 // ** Next Import
 import { useNavigate } from 'react-router-dom'
-import Spinner from 'src/@core/components/spinner'
+import Spinner from '../../../@core/components/spinner'
 
 interface Props {
   children: ReactNode

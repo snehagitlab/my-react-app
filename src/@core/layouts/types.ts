@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Settings } from 'src/@core/context/settingsContext'
+import { Settings } from '../@core/context/settingsContext'
 
 export type Layout = 'vertical' | 'horizontal' | 'blank' | 'blankWithAppBar'
 
@@ -11,7 +11,7 @@ export type AppBar = 'fixed' | 'static' | 'hidden'
 
 export type Footer = 'fixed' | 'static' | 'hidden'
 
-export type ThemeColor = 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success' 
+export type ThemeColor = 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success'
 
 export type VerticalNavToggle = 'accordion' | 'collapse'
 
@@ -37,7 +37,7 @@ export type NavGroup = {
   badgeContent?: string
   children?: (NavGroup | NavLink)[]
   icon?: string | string[] | ReactNode
-  badgeColor?: 'default' | 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info' 
+  badgeColor?: 'default' | 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info'
 }
 
 export type NavSectionTitle = {

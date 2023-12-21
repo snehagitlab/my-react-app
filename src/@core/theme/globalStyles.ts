@@ -2,10 +2,10 @@
 import { Theme } from '@mui/material/styles'
 
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
+import { Settings } from '../../@core/context/settingsContext'
 
 // ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+import { hexToRGBA } from '../../@core/utils/hex-to-rgba'
 
 const GlobalStyles = (theme: Theme, settings: Settings) => {
   // ** Vars
@@ -26,7 +26,7 @@ const GlobalStyles = (theme: Theme, settings: Settings) => {
   return {
     'body[style^="padding-right"] .layout-navbar-and-nav-container::after': {
       content: '""',
-      position: 'absolute' as const, 
+      position: 'absolute' as const,
       left: '100%',
       top: 0,
       height: '100%',

@@ -15,11 +15,11 @@ import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 import Box from '@mui/material/Box'
 import { useFormik } from 'formik'
 import { toast } from 'react-toastify'
-import { API_PATHS } from 'src/config/api.config'
+import { API_PATHS } from '../../../config/api.config'
 import * as yup from 'yup'
 import { IconX } from '@tabler/icons'
-import AddUsrAgentAvatar from 'src/assets/Images/setting_icons/password_change.png'
-import TicketContext from 'src/context/TicketProvider'
+import AddUsrAgentAvatar from '../../../assets/Images/setting_icons/password_change.png'
+import TicketContext from '../../../context/TicketProvider'
 
 
 interface IAddUserAgentModalProps {
@@ -28,8 +28,8 @@ interface IAddUserAgentModalProps {
 }
 
 //env file
-const BASE_URL = process.env.REACT_APP_BASE_URL
-const API_VERSION = process.env.REACT_APP_API_VERSION
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL
+const API_VERSION = import.meta.env.VITE_APP_API_VERSION
 
 
 
@@ -62,9 +62,9 @@ const ChangePassword = (props: IAddUserAgentModalProps) => {
     event.preventDefault()
   }
   const schema = yup.object().shape({
-    oldPassword: yup.string().min(8,'Password length must be greater than 8 characters.').required('*Oldpassword  is required.'),
+    oldPassword: yup.string().min(8, 'Password length must be greater than 8 characters.').required('*Oldpassword  is required.'),
     newPassword: yup.string().min(8, 'Password length must be greater than 8 characters.').required('*Newpassword is required.').matches(/[@$!%*#?&]+/, "Password must contain a special character.")/* .matches(/\d+/, "One number is required.") */,
-    confirmPassword: yup.string().min(8,'Password length must be greater than 8 characters.').required('*Confirmpassword is required.').oneOf([yup.ref('newPassword'), null], 'Password and new password does not match.').matches(/[@$!%*#?&]+/, "Password must contain a special character.")/* .matches(/\d+/, "One number is required.") */
+    confirmPassword: yup.string().min(8, 'Password length must be greater than 8 characters.').required('*Confirmpassword is required.').oneOf([yup.ref('newPassword'), null], 'Password and new password does not match.').matches(/[@$!%*#?&]+/, "Password must contain a special character.")/* .matches(/\d+/, "One number is required.") */
 
   })
   const formik = useFormik({
@@ -163,7 +163,7 @@ const ChangePassword = (props: IAddUserAgentModalProps) => {
                     <Typography variant='h5'> Update Your Password</Typography>
                   </Box>
 
-                 {/*  <Box display={'flex'} justifyContent={'center'} alignContent={'center'}>
+                  {/*  <Box display={'flex'} justifyContent={'center'} alignContent={'center'}>
                     <Typography
                       sx={{
                         fontFamily: 'Mazzard',
@@ -176,7 +176,7 @@ const ChangePassword = (props: IAddUserAgentModalProps) => {
                       }}
                     > Your new password must be different from previous used passwords</Typography>
                   </Box> */}
-                  
+
                 </Box>
                 <Grid container spacing={5}>
                   <Grid item xs={12} md={11} sx={{ marginLeft: '20px' }}>
@@ -189,7 +189,7 @@ const ChangePassword = (props: IAddUserAgentModalProps) => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         type={values.showOldPassword ? 'text' : 'password'}
-                        error={Boolean(formik.errors.oldPassword  && formik.touched.oldPassword )}
+                        error={Boolean(formik.errors.oldPassword && formik.touched.oldPassword)}
 
                         endAdornment={
                           <InputAdornment position='end'>
@@ -243,7 +243,7 @@ const ChangePassword = (props: IAddUserAgentModalProps) => {
                         <FormHelperText sx={{ color: 'error.main', fontSize: '15px !important' }} id=''>
                           {formik.errors.newPassword}
                         </FormHelperText>
-                      )  }
+                      )}
 
 
                     </FormControl>

@@ -1,15 +1,15 @@
 // export default ChatLog
 import React, { useEffect, useRef, useState } from 'react'
 import { Typography } from '@mui/material'
-import Avatar from 'src/@core/components/mui/avatar'
+import Avatar from '../../../@core/components/mui/avatar'
 import { Grid } from '@mui/material'
 
 //import imgaes
 
 //import UserImage from '../../../assets/Images/user_Icons/light/user_img.png'
 
-import { DefaultProfilePic } from 'src/views/apps/chat/chatContent/defaultProfilePic'
-import sendBtnImage from 'src/assets/Images/sendbtn.png'
+import { DefaultProfilePic } from '../../../views/apps/chat/chatContent/defaultProfilePic'
+import sendBtnImage from '../../../assets/Images/sendbtn.png'
 
 // ** MUI Imports
 import Button from '@mui/material/Button'
@@ -17,16 +17,16 @@ import TextField from '@mui/material/TextField'
 
 //import IconButton from '@mui/material/IconButton'
 import Box from '@mui/material/Box'
-import TicketContext from 'src/context/TicketProvider'
-import { CHAT_MESSAGE_TYPE, API_PATHS, SOCKET_TICKET_REFRESH } from 'src/config/api.config'
-import ChatContext from 'src/context/ChatProvider'
+import TicketContext from '../../../context/TicketProvider'
+import { CHAT_MESSAGE_TYPE, API_PATHS, SOCKET_TICKET_REFRESH } from '../../../config/api.config'
+import ChatContext from '../../../context/ChatProvider'
 import LoadingButton from '@mui/lab/LoadingButton'
 import { useTheme } from '@mui/material/styles'
 import { Helmet } from 'react-helmet'
-import { socket } from 'src/views/apps/chat/chatContent/SocketConnection'
+import { socket } from '../../../views/apps/chat/chatContent/SocketConnection'
 import moment from 'moment'
 
-const CHAT_URL = process.env.REACT_APP_CHAT_URL
+const CHAT_URL = import.meta.env.VITE_APP_CHAT_URL
 
 function Index() {
 

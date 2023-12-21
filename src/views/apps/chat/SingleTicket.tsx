@@ -8,7 +8,7 @@ import Popover from '@mui/material/Popover'
 //import { toast } from 'react-toastify'
 
 //import CircularProgress from '@mui/material/CircularProgress'
-import TicketContext from 'src/context/TicketProvider'
+import TicketContext from '../context/TicketProvider'
 import { useNavigate } from 'react-router-dom'
 
 // import images
@@ -22,17 +22,17 @@ import ColorEdit from 'src/assets/Images/Icons/light/colorEdit.png'
 
 
 //  Config file
- import { TICKET_PRIORITY} from 'src/config/api.config'
+import { TICKET_PRIORITY } from 'src/config/api.config'
 
 
-//const BASE_URL = process.env.REACT_APP_BASE_URL
+//const BASE_URL = import.meta.env.VITE_APP_BASE_URL
 
 
 
 const SingleTicket = ({ item }: any) => {
 
 
-  const { /* deleteTicketListing,setDeleteTicketlisting, */setSupportTicketId/* ,setDeleteTicket */,handleoffenceSliderOpen, handleSliderClose, setOpenTicketDetails, setGetTicketId, setOffenceTicketCreate } = React.useContext<any>(TicketContext)
+  const { /* deleteTicketListing,setDeleteTicketlisting, */setSupportTicketId/* ,setDeleteTicket */, handleoffenceSliderOpen, handleSliderClose, setOpenTicketDetails, setGetTicketId, setOffenceTicketCreate } = React.useContext<any>(TicketContext)
   //const theme = useTheme()
   const [anchorEl1, setAnchorEl1] = React.useState<HTMLButtonElement | null>(null)
   const [anchorElDrop, setAnchorElDrop] = React.useState<HTMLButtonElement | null>(null)
@@ -65,7 +65,7 @@ const SingleTicket = ({ item }: any) => {
     setAnchorElDrop(null)
   }
 
-  
+
 
   //import style
   const styles = {
@@ -84,16 +84,16 @@ const SingleTicket = ({ item }: any) => {
   }
 
   // delete modal css
-/* const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  boxShadow: '5px 7px 20px rgb(0 0 0 / 25%) !important',
-  bgcolor: 'background.paper',
-  borderRadius: '25px',
-  p: 8
-} */
+  /* const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    boxShadow: '5px 7px 20px rgb(0 0 0 / 25%) !important',
+    bgcolor: 'background.paper',
+    borderRadius: '25px',
+    p: 8
+  } */
 
   /* const handleExportPdf = async (id: any) => {
 
@@ -159,26 +159,26 @@ const SingleTicket = ({ item }: any) => {
 
   const navigate = useNavigate()
 
- /*  const handleDelete = async () => {
-    const UserData: any = JSON.parse(localStorage.getItem('user1Data') || '{}')
-    const url = new URL(`${BASE_URL}/v1/ticket?ticketId=${deleteTicketId}`)
-    const response = await fetch(url.toString(), {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${UserData.token}`
-      }
-    })
-    const result = await response.json()
-    if (result.status === 200) {
-      setAnchorElDrop(null)
-      setDeleteTicket(result)
-      toast.success(result.message)
-      setDeleteTicketlisting(!deleteTicketListing)
-      handleCloseTicket()
-    }
-  } */
+  /*  const handleDelete = async () => {
+     const UserData: any = JSON.parse(localStorage.getItem('user1Data') || '{}')
+     const url = new URL(`${BASE_URL}/v1/ticket?ticketId=${deleteTicketId}`)
+     const response = await fetch(url.toString(), {
+       method: 'DELETE',
+       headers: {
+         'Content-Type': 'application/json',
+         Accept: 'application/json',
+         Authorization: `Bearer ${UserData.token}`
+       }
+     })
+     const result = await response.json()
+     if (result.status === 200) {
+       setAnchorElDrop(null)
+       setDeleteTicket(result)
+       toast.success(result.message)
+       setDeleteTicketlisting(!deleteTicketListing)
+       handleCloseTicket()
+     }
+   } */
 
   const handleOffencEditId = (id: any) => {
     handleSliderClose()
@@ -202,13 +202,13 @@ const SingleTicket = ({ item }: any) => {
       setOffenceTicketCreate(true)
       setGetTicketId(id)
     }
-    document.title="Ticket Details - Gogtas"
+    document.title = "Ticket Details - Gogtas"
 
   }
 
 
   //dlete ticket modal state
- // const [openTicket, setOpenTicket] = React.useState(false);
+  // const [openTicket, setOpenTicket] = React.useState(false);
 
 
   /* const handleCloseTicket = () => {
@@ -255,46 +255,46 @@ const SingleTicket = ({ item }: any) => {
                     >
                       {formatted_date}
                     </Typography>
-                    <Grid item sx={{ display: { xs: 'block', md: 'none', sm: 'block' }}}>
+                    <Grid item sx={{ display: { xs: 'block', md: 'none', sm: 'block' } }}>
                       <Fragment>
-                      {item.fromUser.userId == loggedInUserId ?
-                              (
-                                <>
-                        <IconButton size='small' sx={{ color: 'text.secondary' }}>
-                          <Avatar src={Dots} sx={{ width: '35px', height: '35px'  }}  onClick={handleDropdownOpen}  />
-                        </IconButton>
-                      
-                                
-                          <Menu
-                            className=' pdf-export-popover'
-                            anchorEl={anchorElDrop}
-                            open={Boolean(anchorElDrop)}
-                            onClose={() => handleDropdownClose()}
-                            sx={{ '& .MuiMenu-paper': { width: 230, marginTop: 4 } }}
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                          >
-                           
-                              <MenuItem sx={{ p: 0  }} >
-                                <Box sx={styles} onClick={() => handleOffencEditId(item.ticketId)} >
-                                <img src={ColorEdit} alt='edit-img' style={{ height: '18px', width: '18px', marginRight: '6px' }} />{' '}
-                                  Edit</Box>
-                              </MenuItem>
-                             
+                        {item.fromUser.userId == loggedInUserId ?
+                          (
+                            <>
+                              <IconButton size='small' sx={{ color: 'text.secondary' }}>
+                                <Avatar src={Dots} sx={{ width: '35px', height: '35px' }} onClick={handleDropdownOpen} />
+                              </IconButton>
 
-                              {/* <MenuItem sx={{ p: 0 }}>
+
+                              <Menu
+                                className=' pdf-export-popover'
+                                anchorEl={anchorElDrop}
+                                open={Boolean(anchorElDrop)}
+                                onClose={() => handleDropdownClose()}
+                                sx={{ '& .MuiMenu-paper': { width: 230, marginTop: 4 } }}
+                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                              >
+
+                                <MenuItem sx={{ p: 0 }} >
+                                  <Box sx={styles} onClick={() => handleOffencEditId(item.ticketId)} >
+                                    <img src={ColorEdit} alt='edit-img' style={{ height: '18px', width: '18px', marginRight: '6px' }} />{' '}
+                                    Edit</Box>
+                                </MenuItem>
+
+
+                                {/* <MenuItem sx={{ p: 0 }}>
                               <Box sx={styles} onClick={()=>{handleOpen(),setDeleteTicketId(item.ticketId),handleDropdownClose()}}>
                               <img src={deleteTicketIcon} alt='edit-img' style={{ height: '19px', width: '19px', marginRight: '6px',marginBottom:'4px' }} />{' '}
 
                                 Delete
                               </Box>
                             </MenuItem> */}
-                            
-                         
-                         </Menu>   </> ) : (' ')
-                       
-                         }
-                           {/*  <MenuItem sx={{ p: 0 }} >
+
+
+                              </Menu>   </>) : (' ')
+
+                        }
+                        {/*  <MenuItem sx={{ p: 0 }} >
                               {menuItemLoading ? (
                                 <>
                                   <CircularProgress color='inherit' className='pdf-export-loader' />
@@ -315,8 +315,8 @@ const SingleTicket = ({ item }: any) => {
                               </Box>
                             </MenuItem> */}
 
-                          
-                        
+
+
                       </Fragment>
                     </Grid>
                   </Grid>
@@ -417,12 +417,12 @@ const SingleTicket = ({ item }: any) => {
                                 : 'green'
                     }}
                   ></Grid>
-                   <Grid item>
+                  <Grid item>
                     <Grid container justifyContent='center' alignItems='center'>
-                     {/*  <Grid item sx={{ mr: '10px' }}>
+                      {/*  <Grid item sx={{ mr: '10px' }}>
                         <Avatar src={UserImage} />
                       </Grid>  */}
-                       <Grid item>
+                      <Grid item>
                         <Typography
                           sx={{
                             fontFamily: 'Mazzard',
@@ -445,7 +445,7 @@ const SingleTicket = ({ item }: any) => {
                         </Typography>
                       </Grid>
                     </Grid>
-                  </Grid> 
+                  </Grid>
                   <Grid item sx={{ width: '1px', height: '40px', background: 'lightgray' /* 'rgba(226, 226, 226, 0.53)' */ }}>
                     {' '}
                   </Grid>
@@ -486,8 +486,8 @@ const SingleTicket = ({ item }: any) => {
                             color: 'rgba(42, 58, 81, 0.53)'
                           }}
                         >
-                        Raised By
-                      </Typography>
+                          Raised By
+                        </Typography>
                         <Typography
                           sx={{
                             fontFamily: 'Mazzard',
@@ -502,10 +502,10 @@ const SingleTicket = ({ item }: any) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                   <Grid item sx={{ width: '1px', height: '40px', background: 'lightgray' }}>
+                  <Grid item sx={{ width: '1px', height: '40px', background: 'lightgray' }}>
                     {' '}
-                  </Grid> 
-                    <Grid item>
+                  </Grid>
+                  <Grid item>
                     <Typography
                       sx={{
                         fontFamily: 'Mazzard',
@@ -534,11 +534,11 @@ const SingleTicket = ({ item }: any) => {
                         <>low</>
                       )}
                     </Typography>
-                  </Grid> 
+                  </Grid>
                   <Grid item sx={{ width: '1px', height: '40px', background: 'lightgray' /* 'rgba(226, 226, 226, 0.53)' */ }}>
                     {' '}
                   </Grid>
-                {/*   <Grid item>
+                  {/*   <Grid item>
                     <Typography
                       sx={{
                         fontFamily: 'Mazzard',
@@ -577,14 +577,14 @@ const SingleTicket = ({ item }: any) => {
               </Grid>
 
               <Grid item>
-              {item.fromUser.userId == loggedInUserId ?
-                              (
-                <IconButton
-                  size='small'
-                  sx={{ color: 'text.secondary', display: { xs: 'none', md: 'block', sm: 'none' } }}
-                >
-                  <Avatar src={Dots} onClick={handleDropdownOpen} />
-                </IconButton> ): ''}
+                {item.fromUser.userId == loggedInUserId ?
+                  (
+                    <IconButton
+                      size='small'
+                      sx={{ color: 'text.secondary', display: { xs: 'none', md: 'block', sm: 'none' } }}
+                    >
+                      <Avatar src={Dots} onClick={handleDropdownOpen} />
+                    </IconButton>) : ''}
               </Grid>
             </Grid>
           </CardActions>
@@ -623,8 +623,8 @@ const SingleTicket = ({ item }: any) => {
           {/*  <EditPopover handleeditClose={handleeditClose} getTicketId={getTicketId} /> */}
 
         </Popover>
-{/* delete ticket modal */}
-{/* <Modal
+        {/* delete ticket modal */}
+        {/* <Modal
         hideBackdrop
         open={openTicket}
         onClose={handleCloseTicket}

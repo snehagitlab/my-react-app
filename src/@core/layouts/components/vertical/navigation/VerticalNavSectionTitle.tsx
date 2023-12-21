@@ -5,8 +5,8 @@ import Typography, { TypographyProps } from '@mui/material/Typography'
 import MuiListSubheader, { ListSubheaderProps } from '@mui/material/ListSubheader'
 
 // ** Types
-import { NavSectionTitle } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
+import { NavSectionTitle } from '../@core/layouts/types'
+import { Settings } from '../@core/context/settingsContext'
 
 // ** Custom Components Imports
 import Translations from 'src/layouts/components/Translations'
@@ -85,10 +85,10 @@ const VerticalNavSectionTitle = (props: Props) => {
           ...conditionalStyling(),
           ...(navCollapsed && !navHover
             ? {
-                py: 3.5,
-                pr: (collapsedNavWidth - navigationBorderWidth - 24) / 8 - 1,
-                pl: (collapsedNavWidth - navigationBorderWidth - 24) / 8 + 0.25
-              }
+              py: 3.5,
+              pr: (collapsedNavWidth - navigationBorderWidth - 24) / 8 - 1,
+              pl: (collapsedNavWidth - navigationBorderWidth - 24) / 8 + 0.25
+            }
             : { px: 0, py: 1.75 })
         }}
       >
@@ -101,10 +101,10 @@ const VerticalNavSectionTitle = (props: Props) => {
             ...(navCollapsed && !navHover
               ? {}
               : {
-                  textTransform: 'uppercase',
-                  '&:before, &:after': { top: 7, transform: 'none' },
-                  '& .MuiDivider-wrapper': { px: 2.5, fontSize: '0.75rem', letterSpacing: '0.21px' }
-                })
+                textTransform: 'uppercase',
+                '&:before, &:after': { top: 7, transform: 'none' },
+                '& .MuiDivider-wrapper': { px: 2.5, fontSize: '0.75rem', letterSpacing: '0.21px' }
+              })
           }}
         >
           {navCollapsed && !navHover ? null : (

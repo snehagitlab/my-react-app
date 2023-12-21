@@ -8,20 +8,20 @@ import MuiAvatar from '@mui/material/Avatar'
 import ListItem from '@mui/material/ListItem'
 
 //import UserImage from '../../../../assets/Images/user_Icons/light/user_img.png'
-import { API_PATHS, SOCKET_TICKET_REFRESH, USER_ROLE } from 'src/config/api.config'
-import Search from 'src/assets/Images/user_Icons/light/search-normal.svg'
-import TicketContext from 'src/context/TicketProvider'
-import ChatContext from 'src/context/ChatProvider'
+import { API_PATHS, SOCKET_TICKET_REFRESH, USER_ROLE } from '../../../../config/api.config'
+import Search from '../../../../assets/Images/user_Icons/light/search-normal.svg'
+import TicketContext from '../../../../context/TicketProvider'
+import ChatContext from '../../../../context/ChatProvider'
 import Close from 'mdi-material-ui/Close'
 
 //import CreateTicket from './CreateTicketBtn'
-import { socket } from 'src/views/apps/chat/chatContent/SocketConnection'
-import { DefaultProfilePic } from 'src/views/apps/chat/chatContent/defaultProfilePic'
+import { socket } from '../../../../views/apps/chat/chatContent/SocketConnection'
+import { DefaultProfilePic } from '../../../../views/apps/chat/chatContent/defaultProfilePic'
 import moment from 'moment';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL
-const API_VERSION = process.env.REACT_APP_API_VERSION
-const CHAT_URL = process.env.REACT_APP_CHAT_URL
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL
+const API_VERSION = import.meta.env.VITE_APP_API_VERSION
+const CHAT_URL = import.meta.env.VITE_APP_CHAT_URL
 
 
 function ActiveSupport() {

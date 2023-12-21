@@ -6,14 +6,14 @@ import Box from '@mui/material/Box'
 import Badge from '@mui/material/Badge'
 
 // ** Custom Components Import
-import MuiAvatar from 'src/@core/components/mui/avatar'
+import MuiAvatar from '../../../../@core/components/mui/avatar'
 
 //import context
-import TicketContext from 'src/context/TicketProvider'
+import TicketContext from '../../../../context/TicketProvider'
 
-//import ChatContext from 'src/context/ChatProvider'
-import { socket } from 'src/views/apps/chat/chatContent/SocketConnection'
-import { DefaultProfilePic } from 'src/views/apps/chat/chatContent/defaultProfilePic'
+//import ChatContext from '../context/ChatProvider'
+import { socket } from '../../../../views/apps/chat/chatContent/SocketConnection'
+import { DefaultProfilePic } from '../../../../views/apps/chat/chatContent/defaultProfilePic'
 
 function ChatContent() {
   const { agent } = React.useContext<any>(TicketContext)

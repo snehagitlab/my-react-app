@@ -20,11 +20,11 @@ import clsx from 'clsx'
 import CircleOutline from 'mdi-material-ui/CircleOutline'
 
 // ** Theme Config Import
-import themeConfig from 'src/configs/themeConfig'
+import themeConfig from '../configs/themeConfig'
 
 // ** Types
-import { NavLink } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
+import { NavLink } from '../@core/layouts/types'
+import { Settings } from '../@core/context/settingsContext'
 
 // ** Custom Components Imports
 import UserIcon from 'src/layouts/components/UserIcon'
@@ -32,7 +32,7 @@ import Translations from 'src/layouts/components/Translations'
 import CanViewNavLink from 'src/layouts/components/acl/CanViewNavLink'
 
 // ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+import { hexToRGBA } from '../@core/utils/hex-to-rgba'
 
 interface Props {
   item: NavLink
@@ -99,17 +99,17 @@ const HorizontalNavLink = (props: Props) => {
               ...(item.disabled ? { pointerEvents: 'none' } : { cursor: 'pointer' }),
               ...(!hasParent
                 ? {
-                    px: 5.5,
-                    borderRadius: 3.5,
-                    '&.active, &.active:hover': {
-                      boxShadow: 3,
-                      backgroundImage: theme =>
-                        `linear-gradient(98deg, ${theme.palette.customColors.primaryGradient}, ${theme.palette.primary.main} 94%)`,
-                      '& .MuiTypography-root, & .MuiListItemIcon-root, & .MuiSvgIcon-root': {
-                        color: 'common.white'
-                      }
+                  px: 5.5,
+                  borderRadius: 3.5,
+                  '&.active, &.active:hover': {
+                    boxShadow: 3,
+                    backgroundImage: theme =>
+                      `linear-gradient(98deg, ${theme.palette.customColors.primaryGradient}, ${theme.palette.primary.main} 94%)`,
+                    '& .MuiTypography-root, & .MuiListItemIcon-root, & .MuiSvgIcon-root': {
+                      color: 'common.white'
                     }
                   }
+                }
                 : { px: 5 })
             }}
           >

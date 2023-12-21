@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { useNavigate as useRouter } from 'react-router-dom'
 
 // ** Spinner Import
-import Spinner from 'src/@core/components/spinner'
+import Spinner from '../@core/components/spinner'
 
 // ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'

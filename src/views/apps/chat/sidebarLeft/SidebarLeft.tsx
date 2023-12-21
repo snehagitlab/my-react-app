@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 
 // useRef
 import ActiveSupport from './ActiveSupport'
-import CreateTicketButton from './CreateTicketBtn'
 
 // import mui
 import ListItemAvatar from '@mui/material/ListItemAvatar'
@@ -32,20 +31,18 @@ import {
 import UserImage from '../../../../assets/Images/user_Icons/light/user_img.png'
 import AddTicket1 from '../../../../assets/Images/user_Icons/light/add-circle1.svg'
 import FileUpload from '../../../../assets/Images/user_Icons/light/file_upload.svg'
-import { API_PATHS } from 'src/config/api.config'
+import { API_PATHS } from '../../../../config/api.config'
 
 //env file
-const BASE_URL = process.env.REACT_APP_BASE_URL
-const API_VERSION = process.env.REACT_APP_API_VERSION
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL
+const API_VERSION = import.meta.env.VITE_APP_API_VERSION
 
 
 //react -router dom import
 import { Link, useNavigate } from 'react-router-dom'
-import TicketContext from 'src/context/TicketProvider'
-import ChatContext from 'src/context/ChatProvider'
-import { socket } from 'src/views/apps/chat/chatContent/SocketConnection'
-import homeImg from 'src/assets/Images/user_Icons/light/home.svg'
-import IconButton from '@mui/material/IconButton'
+import TicketContext from '../../../../context/TicketProvider'
+import ChatContext from '../../../../context/ChatProvider'
+import { socket } from '../../../../views/apps/chat/chatContent/SocketConnection'
 
 const SidebarLeft = () => {
 
@@ -111,15 +108,7 @@ const SidebarLeft = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateuserProfile])
 
-  const navigateDashboard = () => {
 
-    const pathName = window.location.pathname
-    if (pathName.includes("/user/dashboard/support/")) {
-      navigate('/user/dashboard')
-    } else {
-      setdisplayChatUi(false)
-    }
-  }
 
   return (
     <>
@@ -202,7 +191,7 @@ const SidebarLeft = () => {
                   log out
                 </Button>
               </Grid>
-              <Grid item sx={{ marginLeft: 'auto' }}>
+              {/* <Grid item sx={{ marginLeft: 'auto' }}>
                 <IconButton
                   size='small'
                   sx={{
@@ -217,7 +206,7 @@ const SidebarLeft = () => {
                   <img src={homeImg} alt="Dashboard" />
                 </IconButton>
 
-              </Grid>
+              </Grid> */}
             </Grid>
           </Grid>
 
@@ -229,9 +218,7 @@ const SidebarLeft = () => {
         </Grid>
 
         {/* start create ticket button component  */}
-        <Grid sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
-          <CreateTicketButton />
-        </Grid>
+
 
         <ActiveSupport />
         {/* knowledge base div end */}

@@ -16,19 +16,19 @@ import { Link, useLocation } from 'react-router-dom'
 import ArrowUp from 'mdi-material-ui/ArrowUp'
 
 // ** Theme Config Import
-import themeConfig from 'src/configs/themeConfig'
+import themeConfig from '../configs/themeConfig'
 
 // ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
+import { LayoutProps } from '../@core/layouts/types'
 
 // ** Components
-import Customizer from 'src/@core/components/customizer'
+import Customizer from '../@core/components/customizer'
 import Navigation from './components/horizontal/navigation'
-import ScrollToTop from 'src/@core/components/scroll-to-top'
+import ScrollToTop from '../@core/components/scroll-to-top'
 import AppBarContent from './components/horizontal/app-bar-content'
 
 // ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+import { hexToRGBA } from '../@core/utils/hex-to-rgba'
 import DashboardDarkIcon from 'src/assets/Images/Icons/dark/dashboard.png'
 import NotificationDarkIcon from 'src/assets/Images/Icons/dark/notification-status.png'
 import SettingsDarkIcon from 'src/assets/Images/Icons/dark/setting.png'
@@ -42,7 +42,7 @@ import UserAndAgentLightIcon from 'src/assets/Images/Icons/light/user.svg'
 import OrganisationLightIcon from 'src/assets/Images/Icons/light/organisation.png'
 
 // ** Styled Component
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+import DatePickerWrapper from '../@core/styles/libs/react-datepicker'
 
 const HorizontalLayoutWrapper = styled('div')({
   display: 'flex',

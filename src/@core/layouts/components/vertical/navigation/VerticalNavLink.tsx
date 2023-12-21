@@ -14,11 +14,11 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 
 // ** Configs Import
-import themeConfig from 'src/configs/themeConfig'
+import themeConfig from '../configs/themeConfig'
 
 // ** Types
-import { NavLink, NavGroup } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
+import { NavLink, NavGroup } from '../@core/layouts/types'
+import { Settings } from '../@core/context/settingsContext'
 
 // ** Custom Components Imports
 import UserIcon from 'src/layouts/components/UserIcon'

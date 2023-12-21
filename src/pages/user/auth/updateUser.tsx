@@ -10,11 +10,11 @@ import { useFormik } from 'formik'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import ImageUpdateIcon from 'src/assets/Images/update_image_icon.svg'
+import ImageUpdateIcon from '../../../assets/Images/update_image_icon.svg'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import MuiAvatar from '@mui/material/Avatar'
-import {DefaultProfilePic} from 'src/views/apps/chat/chatContent/defaultProfilePic'
+import { DefaultProfilePic } from '../../../views/apps/chat/chatContent/defaultProfilePic'
 
 //import axios
 import axios from 'axios'
@@ -23,12 +23,12 @@ import axios from 'axios'
 import Scrolling from '../../../assets/Images/user_Icons/light/scrolling.svg'
 
 //import config
-import { API_PATHS, FILE_TYPE } from 'src/config/api.config'
+import { API_PATHS, FILE_TYPE } from '../../../config/api.config'
 
 //env file
-const BASE_URL = process.env.REACT_APP_BASE_URL
-const BASE_URL_PUBLIC = process.env.REACT_APP_BASE_URL_PUBLIC
-const API_VERSION = process.env.REACT_APP_API_VERSION
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL
+const BASE_URL_PUBLIC = import.meta.env.VITE_APP_BASE_URL_PUBLIC
+const API_VERSION = import.meta.env.VITE_APP_API_VERSION
 
 //toasify
 import { toast } from 'react-toastify'
@@ -37,9 +37,9 @@ import { toast } from 'react-toastify'
 import * as yup from 'yup'
 
 //import compoennts
-import TicketContext from 'src/context/TicketProvider'
-import ChatContext from 'src/context/ChatProvider'
-import ChangePassword from 'src/pages/user/auth/changePassword'
+import TicketContext from '../../../context/TicketProvider'
+import ChatContext from '../../../context/ChatProvider'
+import ChangePassword from '../../../pages/user/auth/changePassword'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 //import image url
@@ -52,7 +52,7 @@ const UpdateUser = () => {
 
   const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
   const userId = user.data.userId
-  const { updateuserProfile, setupdateuserProfile,setShowUpdateUserData, showUpdateUserData, setchangepasstoggleuser, changepasstoggleuser } = React.useContext<any>(TicketContext)
+  const { updateuserProfile, setupdateuserProfile, setShowUpdateUserData, showUpdateUserData, setchangepasstoggleuser, changepasstoggleuser } = React.useContext<any>(TicketContext)
   const { updateUserStyle, handleUserUpdateClose } = React.useContext<any>(ChatContext)
   const [finalFilePath, setFinalfilePath] = React.useState<any>()
   const [openChangePasswordModal, setOpenChangePasswordModal] = React.useState<boolean>(false)
@@ -75,12 +75,11 @@ const UpdateUser = () => {
     fileInput.current.click()
   }
 
-  useEffect(()=>{
-    if(handleDetails)
-    {
+  useEffect(() => {
+    if (handleDetails) {
       handleGetUserDetails()
     }
-  },[handleDetails])
+  }, [handleDetails])
 
   //get image onChnage event
   const handleGetUserImg = async (e: any) => {
@@ -211,7 +210,7 @@ const UpdateUser = () => {
         <Box sx={{ display: 'flex' }}>
           <Box
             sx={{ width: '22%', display: { xs: 'none', sm: 'none', md: 'block' } }}
-            onClick={()=>{handleUserUpdateClose(),sethandleDetails(true)}}
+            onClick={() => { handleUserUpdateClose(), sethandleDetails(true) }}
           ></Box>
           <Box
             sx={{
@@ -223,7 +222,7 @@ const UpdateUser = () => {
           >
             <IconButton
               size='small'
-              onClick={()=>{handleUserUpdateClose(),sethandleDetails(true)}}
+              onClick={() => { handleUserUpdateClose(), sethandleDetails(true) }}
               sx={{
                 color: 'text.secondary',
                 position: 'absolute',
@@ -303,7 +302,7 @@ const UpdateUser = () => {
                     }}
                   >
 
-                    <MuiAvatar src={imgPath == '' ? `${DefaultProfilePic}` :`${imgPath}`} alt='User Profile' sx={{ width: '100%', height: '100%' }} />
+                    <MuiAvatar src={imgPath == '' ? `${DefaultProfilePic}` : `${imgPath}`} alt='User Profile' sx={{ width: '100%', height: '100%' }} />
                     <input
                       type='file'
                       style={{ display: 'none' }}
@@ -409,7 +408,7 @@ const UpdateUser = () => {
                       id='address'
                       label='Address'
                       onChange={formik.handleChange}
-                      value={formik.values.address == 'null' ? ' ' : formik.values.address }
+                      value={formik.values.address == 'null' ? ' ' : formik.values.address}
                       error={Boolean(formik.errors.address && formik.touched.address)}
                     />
                   </FormControl>
@@ -445,44 +444,44 @@ const UpdateUser = () => {
 
                 <Grid item xs={6} md={12} sx={{ alignItem: 'center', justifyContent: 'center' }}>
                   <Box m={1} display='flex' justifyContent='center' alignItems='center' sx={{ marginBottom: '60px' }}>
-                  <Button
-                     
+                    <Button
+
                       size='large'
                       sx={{ marginLeft: '10px', textTransform: 'capitalize' }}
                       variant='outlined'
-                      onClick={()=>{handleUserUpdateClose(),sethandleDetails(true)}}
-                                         >
+                      onClick={() => { handleUserUpdateClose(), sethandleDetails(true) }}
+                    >
                       Cancel
                     </Button>
                     {
-                       loader ?
-                       <>
-                         <LoadingButton
-                           loading={loader}
-                           variant='contained'
-                           size='large'
-                           disabled
-                           sx={{
-                             textTransform: 'capitalize',
-                             marginLeft: '10px'
-                           }}
-                         >
-                           Update
-                         </LoadingButton>
-                       </>
-                       :
-                       <>
+                      loader ?
+                        <>
+                          <LoadingButton
+                            loading={loader}
+                            variant='contained'
+                            size='large'
+                            disabled
+                            sx={{
+                              textTransform: 'capitalize',
+                              marginLeft: '10px'
+                            }}
+                          >
+                            Update
+                          </LoadingButton>
+                        </>
+                        :
+                        <>
                           <Button
-                      type='submit'
-                      size='large'
-                      sx={{ marginLeft: '10px', textTransform: 'capitalize' }}
-                      variant='contained'
-                    >
-                      Update
-                    </Button>
-                    </>
+                            type='submit'
+                            size='large'
+                            sx={{ marginLeft: '10px', textTransform: 'capitalize' }}
+                            variant='contained'
+                          >
+                            Update
+                          </Button>
+                        </>
                     }
-                  
+
                   </Box>
                 </Grid>
               </Grid>

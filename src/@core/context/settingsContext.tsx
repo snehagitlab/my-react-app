@@ -8,7 +8,7 @@ import { PaletteMode, Direction } from '@mui/material'
 import themeConfig from '../../configs/themeConfig'
 
 // ** Types Import
-import { Skin, AppBar, Footer, ThemeColor, ContentWidth, VerticalNavToggle } from '../..//@core/layouts/types'
+import { Skin, AppBar, Footer, ThemeColor, ContentWidth, VerticalNavToggle } from '../../@core/layouts/types'
 
 export type Settings = {
   skin: Skin

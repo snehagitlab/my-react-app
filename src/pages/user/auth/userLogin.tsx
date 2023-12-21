@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
 // import context
-// import ChatContext from 'src/context/ChatProvider'
+// import ChatContext from '../context/ChatProvider'
 
 //import images
 import ArrowRight from '../../../assets/Images/Icons/arrow-right.png'
@@ -33,17 +33,17 @@ import { useFormik } from 'formik'
 import { toast, ToastContainer } from 'react-toastify'
 
 //import config file
-import { API_PATHS } from 'src/config/api.config'
+import { API_PATHS } from '../../../config/api.config'
 
 //ticket context
-import TicketContext from 'src/context/TicketProvider'
+import TicketContext from '../../../context/TicketProvider'
 import { Helmet } from 'react-helmet'
 import io from 'socket.io-client'
 
 //env file
-const BASE_URL_PUBLIC = process.env.REACT_APP_BASE_URL_PUBLIC
-const API_VERSION = process.env.REACT_APP_API_VERSION
-const SOCKET_URL = process.env.REACT_APP_SOCKET_URL
+const BASE_URL_PUBLIC = import.meta.env.VITE_APP_BASE_URL_PUBLIC
+const API_VERSION = import.meta.env.VITE_APP_API_VERSION
+const SOCKET_URL = import.meta.env.VITE_APP_SOCKET_URL
 
 // ** Layout Import
 const schema = yup.object().shape({

@@ -14,18 +14,18 @@ import { Box, Grid } from '@mui/material'
 import MenuIcon from 'mdi-material-ui/Menu'
 
 // ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
+import { Settings } from '../@core/context/settingsContext'
 import { useLocation } from 'react-router-dom'
 
 // import navigation from 'src/navigation/vertical'
 
 // ** Components
 
-// import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
-import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
+// import ModeToggler from '../@core/layouts/components/shared-components/ModeToggler'
+import UserDropdown from '../@core/layouts/components/shared-components/UserDropdown'
 
-// import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
-import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
+// import LanguageDropdown from '../@core/layouts/components/shared-components/LanguageDropdown'
+import NotificationDropdown from '../@core/layouts/components/shared-components/NotificationDropdown'
 
 import menuItems from 'src/config/menuItems.config'
 
@@ -55,7 +55,7 @@ const AppBarContent = (props: Props) => {
     let title = `${user.data.fname} ${user.data.lname}`
 
     if (titleObj['title'] === 'Dashboard') {
-      title = userRole == 1 ?  'Dashboard':`${user.data?.userOrg?.org?.orgName}`
+      title = userRole == 1 ? 'Dashboard' : `${user.data?.userOrg?.org?.orgName}`
     } else {
       title = titleObj['title']
     }
@@ -98,7 +98,7 @@ const AppBarContent = (props: Props) => {
                 color: !isDarkMode ? '#000' : '#ffffff',
                 paddingLeft: '4px',
                 display: { xs: 'none', md: 'block', sm: 'none' },
-                textTransform:'capitalize'
+                textTransform: 'capitalize'
               }}
             >
               {title}

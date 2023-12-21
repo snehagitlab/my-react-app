@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const SOCKET_URL = process.env.REACT_APP_SOCKET_URL
+const SOCKET_URL = import.meta.env.VITE_APP_SOCKET_URL
 
 const UserData: any = JSON.parse(localStorage.getItem('user1Data') || '{}')
 export const socket = io(`${SOCKET_URL}`, {

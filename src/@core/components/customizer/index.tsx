@@ -23,10 +23,10 @@ import Close from 'mdi-material-ui/Close'
 import CogOutline from 'mdi-material-ui/CogOutline'
 
 // ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
+import { Settings } from '../@core/context/settingsContext'
 
 // ** Hook Import
-import { useSettings } from 'src/@core/hooks/useSettings'
+import { useSettings } from '../@core/hooks/useSettings'
 
 const Toggler = styled(Box)<BoxProps>(({ theme }) => ({
   right: 0,
@@ -252,7 +252,7 @@ const Customizer = () => {
                 >
                   {themeColor === 'info' ? <Check fontSize='small' /> : null}
                 </ColorBox>
-               {/*  <ColorBox
+                {/*  <ColorBox
                   onClick={() => handleChange('themeColor', 'diabetes')}
                   sx={{
                     mr: 0,

@@ -1,4 +1,4 @@
-import React, { useEffect ,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 // ** MUI Imports
@@ -18,16 +18,15 @@ import LeftArrow from '../../../../assets/Images/user_Icons/light/LeftArrow.png'
 import { Link } from 'react-router-dom'
 
 //import context
-import TicketContext from 'src/context/TicketProvider'
-import ChatContext from 'src/context/ChatProvider'
+import TicketContext from '../../../../context/TicketProvider'
+import ChatContext from '../../../../context/ChatProvider'
 import { Helmet } from 'react-helmet'
-import { KB_ACCESS } from 'src/config/api.config'
-import { API_PATHS } from 'src/config/api.config'
+import { KB_ACCESS, API_PATHS } from '../../../../config/api.config'
 
-const BASE_URL = process.env.REACT_APP_BASE_URL
-const API_VERSION = process.env.REACT_APP_API_VERSION
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL
+const API_VERSION = import.meta.env.VITE_APP_API_VERSION
 
- 
+
 
 
 function UserDashboard() {
@@ -36,43 +35,43 @@ function UserDashboard() {
     const [orgName, setOrgName] = React.useState<any>("")
 
     //const [offenceTicketCount, setoffenceTicketCount] = useState<any>()
-    
+
     const [kbaccess, setKBaccess] = useState()
-  const [userId, setUserId] = useState(0)
+    const [userId, setUserId] = useState(0)
 
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
-    setUserId(user.data.userId)
-    handleGetUserDetails()
- 
- }, [userId])
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
+        setUserId(user.data.userId)
+        handleGetUserDetails()
 
- const handleGetUserDetails = async () => {
-  if(userId > 0) {
-  const url = new URL(`${BASE_URL}/${API_VERSION}/${API_PATHS.user}/detail?userId=${userId}`)
-  const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
-  try {
-    const response = await fetch(url.toString(), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${user.token}`
-      }
-    })
-    const result = await response.json()
+    }, [userId])
 
-    if (result.status == 200) {
-      const data = result.payload.data
-      setKBaccess(data?.userOrg?.org?.KnowBaseAccess)
+    const handleGetUserDetails = async () => {
+        if (userId > 0) {
+            const url = new URL(`${BASE_URL}/${API_VERSION}/${API_PATHS.user}/detail?userId=${userId}`)
+            const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
+            try {
+                const response = await fetch(url.toString(), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                        Authorization: `Bearer ${user.token}`
+                    }
+                })
+                const result = await response.json()
 
-    } else {
-      console.log(result.message)
+                if (result.status == 200) {
+                    const data = result.payload.data
+                    setKBaccess(data?.userOrg?.org?.KnowBaseAccess)
+
+                } else {
+                    console.log(result.message)
+                }
+            } catch (ex: any) { }
+        }
     }
-  } catch (ex: any) { }
-}
-}
 
     const handleClick = () => {
         setShowActiveSupport(true)
@@ -155,7 +154,7 @@ function UserDashboard() {
                 <Grid sx={{ display: "flex", flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '120px', height: 'fit-content', width: 'fit-content' }}>
                     <Grid sx={{ padding: "5px 0px 5px 10px", width: '300px' }}>
                         <Card sx={{ border: 0, boxShadow: " 0 3px 10px rgb(0 0 0 / 0.2)", backgroundColor: 'common.white', cursor: "pointer" }}
-                          onClick={() => { handleSliderOpen(), handleTabAllTicket() }}>
+                            onClick={() => { handleSliderOpen(), handleTabAllTicket() }}>
                             <CardContent sx={{ padding: theme => `${theme.spacing(8, 5, 8)} !important` }}>
                                 <Typography
                                     variant='h6'
@@ -169,28 +168,28 @@ function UserDashboard() {
                         </Card>
                     </Grid>
                     {
-                          kbaccess != undefined && KB_ACCESS.NOACCESS == kbaccess ? '' :
-                   
-                    (<Grid sx={{ padding: "5px 0px 5px 10px", width: '300px', marginTop: '20px' }}>
-                    <Link to='/user/knowledge' target='_blank' style={{ cursor: "pointer"}} >
-                        <Card sx={{ border: 0, boxShadow: " 0 3px 10px rgb(0 0 0 / 0.2)", backgroundColor: 'common.white', alignItems: 'center', justifyContent: 'center' }}
-                        >
-                        <CardContent sx={{ padding: theme => `${theme.spacing(8, 5, 8)} !important` }}>
-                               
-                                    <Typography
-                                        variant='h6'
-                                        sx={{ display: 'flex', fontWeight: '600', marginBottom: 2.75, alignItems: 'center', justifyContent: 'center', color: 'primary.main' }}
-                                    >
+                        kbaccess != undefined && KB_ACCESS.NOACCESS == kbaccess ? '' :
 
-                                        Knowledge Base
-                                    </Typography>
-                                
-          
-                            </CardContent>
-                        </Card>
-                        </Link>
-                    </Grid>)
-                     }
+                            (<Grid sx={{ padding: "5px 0px 5px 10px", width: '300px', marginTop: '20px' }}>
+                                <Link to='/user/knowledge' target='_blank' style={{ cursor: "pointer" }} >
+                                    <Card sx={{ border: 0, boxShadow: " 0 3px 10px rgb(0 0 0 / 0.2)", backgroundColor: 'common.white', alignItems: 'center', justifyContent: 'center' }}
+                                    >
+                                        <CardContent sx={{ padding: theme => `${theme.spacing(8, 5, 8)} !important` }}>
+
+                                            <Typography
+                                                variant='h6'
+                                                sx={{ display: 'flex', fontWeight: '600', marginBottom: 2.75, alignItems: 'center', justifyContent: 'center', color: 'primary.main' }}
+                                            >
+
+                                                Knowledge Base
+                                            </Typography>
+
+
+                                        </CardContent>
+                                    </Card>
+                                </Link>
+                            </Grid>)
+                    }
                 </Grid>
             </Grid>
             <Grid>
