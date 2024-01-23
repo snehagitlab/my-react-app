@@ -37,10 +37,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import 'antd/dist/antd.css'
 
 import Routes from '../routes'
+import { useRoutes } from 'react-router-dom';
 
 // ** Global css styles
 import '../styles/globals.css'
-
 import TicketState from '../context/TicketContext'
 import ChatState from '../context/ChatContext'
 
@@ -49,6 +49,7 @@ const clientSideEmotionCache = createEmotionCache()
 
 // ** Configure JSS & ClassName
 const App = () => {
+  const content = useRoutes(Routes);
 
 
   return (
@@ -62,7 +63,7 @@ const App = () => {
                   return (
                     <ThemeComponent settings={settings}>
                       <WindowWrapper>
-                        <Routes />
+                        {content}
                       </WindowWrapper>
                       <ReactHotToast>
                         <Toaster

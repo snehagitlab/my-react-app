@@ -14,11 +14,14 @@ const defaultStyle = {
 }
 
 const ChatState = (props: any) => {
-  const [showActiveSupport, setShowActiveSupport] = useState(false)
+  const [showActiveSupport, setShowActiveSupport] = useState(true)
   const [userLogin, setuserLogin] = useState()
   const [getUserImg, setGetUserImg] = useState<any>()
   const [showChat, setShowChat] = useState(false)
   const [updateUserStyle, setupdateUserStyle] = useState<any>(defaultStyle)
+  const [collapsed, setCollapsed] = React.useState(true);
+  const [toggled, setToggled] = React.useState(true);
+
 
   const handleUserUpdate = () => {
     setupdateUserStyle({
@@ -26,7 +29,6 @@ const ChatState = (props: any) => {
       right: '0'
     })
     document.title = "Profile - Gogtas"
-
   }
 
   const handleUserUpdateClose = () => {
@@ -110,7 +112,11 @@ const ChatState = (props: any) => {
           ScrollerPageVisible,
           setScrollerPageVisible,
           previousAgentIdState,
-          setPreviousAgentIdState
+          setPreviousAgentIdState,
+          collapsed,
+          setCollapsed,
+          toggled,
+          setToggled
         }}
       >
         {props.children}

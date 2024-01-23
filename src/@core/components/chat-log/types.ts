@@ -34,3 +34,14 @@ export type MessageGroupType = {
   senderId: number
   messages: ChatType[]
 }
+
+export interface MessageItem {
+  createdAt: string;
+  isUnRead: number;
+  message: string;
+  messageType: number;
+  receiverId: number;
+  senderId: number;
+  uuid: string;
+}
+

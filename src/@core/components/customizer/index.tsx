@@ -23,14 +23,14 @@ import Close from 'mdi-material-ui/Close'
 import CogOutline from 'mdi-material-ui/CogOutline'
 
 // ** Type Import
-import { Settings } from '../@core/context/settingsContext'
+import { Settings } from '../../../@core/context/settingsContext'
 
 // ** Hook Import
-import { useSettings } from '../@core/hooks/useSettings'
+import { useSettings } from '../../../@core/hooks/useSettings'
 
 const Toggler = styled(Box)<BoxProps>(({ theme }) => ({
-  right: 0,
-  top: '50%',
+  left: 0,
+  top: '85%',
   display: 'flex',
   cursor: 'pointer',
   position: 'fixed',
@@ -38,8 +38,8 @@ const Toggler = styled(Box)<BoxProps>(({ theme }) => ({
   zIndex: theme.zIndex.modal,
   transform: 'translateY(-50%)',
   backgroundColor: theme.palette.primary.main,
-  borderTopLeftRadius: theme.shape.borderRadius,
-  borderBottomLeftRadius: theme.shape.borderRadius
+  borderTopRightRadius: theme.shape.borderRadius,
+  borderBottomRightRadius: theme.shape.borderRadius
 }))
 
 const Drawer = styled(MuiDrawer)<DrawerProps>(({ theme }) => ({
@@ -107,11 +107,9 @@ const Customizer = () => {
 
   return (
     <div className='customizer'>
-      {userRole === 2 ? (
-        <Toggler className='customizer-toggler' onClick={() => setOpen(true)}>
-          <CogOutline sx={{ height: 20, width: 20, color: 'common.white' }} />
-        </Toggler>
-      ) : null}
+      <Toggler className='customizer-toggler' onClick={() => setOpen(true)}>
+        <CogOutline sx={{ height: 20, width: 20, color: 'common.white' }} />
+      </Toggler>
 
       <Drawer open={open} hideBackdrop anchor='right' variant='persistent'>
         <Box
@@ -122,10 +120,10 @@ const Customizer = () => {
             borderBottom: theme => `1px solid ${theme.palette.divider}`
           }}
         >
-          <Typography variant='h6' sx={{ fontWeight: 600, textTransform: 'uppercase' }}>
+          <Typography variant='h6' sx={{ fontWeight: 600, textTransform: 'capitalize' }}>
             Theme Customizer
           </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>Customize & Preview in Real Time</Typography>
+          {/* <Typography sx={{ color: 'text.secondary' }}>Customize & Preview in Real Time</Typography> */}
           <IconButton
             onClick={() => setOpen(false)}
             sx={{
@@ -141,13 +139,13 @@ const Customizer = () => {
         </Box>
         <PerfectScrollbar options={{ wheelPropagation: false }}>
           <CustomizerSpacing className='customizer-body'>
-            <Typography
+            {/* <Typography
               component='p'
               variant='caption'
               sx={{ mb: 4, color: 'text.disabled', textTransform: 'uppercase' }}
             >
               Theming
-            </Typography>
+            </Typography> */}
 
             {/* Skin */}
 
@@ -196,16 +194,16 @@ const Customizer = () => {
             <Box>
               <Typography sx={{ mb: 2.5 }}>Primary Color</Typography>
               <Box sx={{ display: 'flex' }}>
-                <ColorBox
+                {/* <ColorBox
                   onClick={() => handleChange('themeColor', 'primary')}
                   sx={{
                     ml: 0,
-                    backgroundColor: '#2D4ACD',
+                    backgroundColor: 'primary.main',
                     ...(themeColor === 'primary' ? { boxShadow: 9 } : { '&:hover': { boxShadow: 4 } })
                   }}
                 >
                   {themeColor === 'primary' ? <Check fontSize='small' /> : null}
-                </ColorBox>
+                </ColorBox> */}
                 <ColorBox
                   onClick={() => handleChange('themeColor', 'secondary')}
                   sx={{
@@ -264,11 +262,13 @@ const Customizer = () => {
                 </ColorBox> */}
               </Box>
             </Box>
+
+
           </CustomizerSpacing>
 
           <Divider sx={{ m: 0 }} />
 
-          <CustomizerSpacing className='customizer-body'>
+          {/* <CustomizerSpacing className='customizer-body'>
             <Typography
               component='p'
               variant='caption'
@@ -279,7 +279,7 @@ const Customizer = () => {
 
             {/* Content Width */}
 
-            {/* <Box sx={{ mb: 4 }}>
+          {/* <Box sx={{ mb: 4 }}>
               <Typography>Content Width</Typography>
               <RadioGroup
                 row
@@ -292,7 +292,7 @@ const Customizer = () => {
               </RadioGroup>
             </Box> */}
 
-            {/* AppBar */}
+          {/* AppBar 
             <Box sx={{ mb: 4 }}>
               <Typography>AppBar Type</Typography>
               <RadioGroup
@@ -309,7 +309,7 @@ const Customizer = () => {
               </RadioGroup>
             </Box>
 
-            {/* AppBar Blur */}
+            {/* AppBar Blur
             <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Typography>AppBar Blur</Typography>
               <Switch
@@ -319,7 +319,7 @@ const Customizer = () => {
               />
             </Box>
 
-            {/* RTL */}
+            {/* RTL 
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Typography>RTL</Typography>
               <Switch
@@ -341,7 +341,7 @@ const Customizer = () => {
               Menu
             </Typography>
 
-            {/* Menu Layout */}
+            {/* Menu Layout
             <Box sx={{ mb: layout === 'horizontal' && appBar === 'hidden' ? {} : 4 }}>
               <Typography>Menu Layout</Typography>
               <RadioGroup
@@ -361,7 +361,7 @@ const Customizer = () => {
               </RadioGroup>
             </Box>
 
-            {/* Menu Collapsed */}
+            {/* Menu Collapsed
             {/* {navHidden || layout === 'horizontal' ? null : (
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Typography>Menu Collapsed</Typography>
@@ -373,7 +373,7 @@ const Customizer = () => {
               </Box>
             )} */}
 
-            {/* Menu Hidden */}
+          {/* Menu Hidden
 
             {/* {layout === 'horizontal' && appBar === 'hidden' ? null : (
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -384,8 +384,8 @@ const Customizer = () => {
                   onChange={e => handleChange('navHidden', e.target.checked)}
                 />
               </Box>
-            )} */}
-          </CustomizerSpacing>
+            )} 
+          </CustomizerSpacing> */}
         </PerfectScrollbar>
       </Drawer>
     </div>

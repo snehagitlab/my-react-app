@@ -48,23 +48,28 @@ function ChatContent() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottom: { sm: 'none', xs: 'none', md: '1px solid #F2F2F2' },
+        borderBottom: { sm: 'none', xs: 'none', md: 'none' },
+        borderBottomLeftRadius: '-30px',
+        // borderBottomRightRadius: '30px',
+        backgroundColor: '#fff',
+
+
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <MuiAvatar
-            src={agent != undefined && agent.profilePic != '' ? agent.profilePic : DefaultProfilePic}
-            alt='Agent Profile'
-            sx={{ width: { xs: '46px', md: '40px' }, height: { xs: '46px', md: '40px' } }}
+            src={agent != undefined && agent.profilePic != '' ? "https://semilynx.gogtas.com/static/media/user_img.d3c64685c1df07b335a7.png" : "https://semilynx.gogtas.com/static/media/user_img.d3c64685c1df07b335a7.png"}
+            alt={agent && agent.fname}
+            sx={{ width: { xs: '46px', md: '45px' }, height: { xs: '46px', md: '45px' } }}
           />
 
           <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '12px' }}>
             <Typography
               sx={{
                 fontWeight: '500',
-                fontSize: { xs: '16px', sm: '18px', md: '18px' },
+                fontSize: { xs: '16px', sm: '17px', md: '18px' },
                 color: '#1B0B2B',
                 lineHeight: '31.74px',
                 fontFamily: 'Mazzard',
@@ -76,7 +81,7 @@ function ChatContent() {
             <Typography
               sx={{
                 color: 'rgba(33, 16, 50, 0.44)',
-                fontSize: { xs: '10px', sm: '12px', md: '11px' },
+                fontSize: { xs: '10px', sm: '12px', md: '15px' },
                 lineHeight: '14px',
 
                 fontWeight: '400',
@@ -99,12 +104,12 @@ function ChatContent() {
                       borderRadius: '50%',
                       color: 'red',
                       border: '1px solid rgba(255, 255, 255, 0.74)',
-                      backgroundColor: agent?.isOnline == 0 ? '#A0A0A0' : '#0EBF7E'
+                      backgroundColor: agent?.isOnline == 0 ? '#A0A0A0' : '#0ea70e'
                     }}
                   />
                 }
               ></Badge>
-              {agent?.isOnline == 0 ? 'Offline' : 'Online'}
+              {agent?.isOnline == 0 ? 'Offline' : 'Active now'}
             </Typography>
           </Box>
         </Box>

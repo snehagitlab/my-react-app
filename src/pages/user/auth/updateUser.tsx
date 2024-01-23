@@ -75,11 +75,11 @@ const UpdateUser = () => {
     fileInput.current.click()
   }
 
-  useEffect(() => {
-    if (handleDetails) {
-      handleGetUserDetails()
-    }
-  }, [handleDetails])
+  // useEffect(() => {
+  //   if (handleDetails) {
+  //     handleGetUserDetails()
+  //   }
+  // }, [handleDetails])
 
   //get image onChnage event
   const handleGetUserImg = async (e: any) => {
@@ -137,33 +137,33 @@ const UpdateUser = () => {
   })
 
   // ** Get User Details
-  const handleGetUserDetails = async () => {
-    const url = new URL(`${BASE_URL}/${API_VERSION}/${API_PATHS.user}/detail?userId=${userId}`)
-    const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
-    try {
-      const response = await fetch(url.toString(), {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${user.token}`
-        }
-      })
-      const result = await response.json()
-      if (result.status == 200) {
-        const data = result.payload.data
-        formik.setFieldValue('fname', data.fname)
-        formik.setFieldValue('email', data.email)
-        formik.setFieldValue('lname', data.lname)
-        formik.setFieldValue('address', data.address)
-        formik.setFieldValue('country', data.country)
-        formik.setFieldValue('city', data.city)
-        setImagePath(data.profilePicture)
-      } else {
-        console.log(result.message)
-      }
-    } catch (ex: any) { }
-  }
+  // const handleGetUserDetails = async () => {
+  //   const url = new URL(`${BASE_URL}/${API_VERSION}/${API_PATHS.user}/detail?userId=${userId}`)
+  //   const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
+  //   try {
+  //     const response = await fetch(url.toString(), {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Accept: 'application/json',
+  //         Authorization: `Bearer ${user.token}`
+  //       }
+  //     })
+  //     const result = await response.json()
+  //     if (result.status == 200) {
+  //       const data = result.payload.data
+  //       formik.setFieldValue('fname', data.fname)
+  //       formik.setFieldValue('email', data.email)
+  //       formik.setFieldValue('lname', data.lname)
+  //       formik.setFieldValue('address', data.address)
+  //       formik.setFieldValue('country', data.country)
+  //       formik.setFieldValue('city', data.city)
+  //       setImagePath(data.profilePicture)
+  //     } else {
+  //       console.log(result.message)
+  //     }
+  //   } catch (ex: any) { }
+  // }
 
   //edit user details
   const handleEditUserData = async () => {
@@ -199,10 +199,10 @@ const UpdateUser = () => {
     }
   }
 
-  useEffect(() => {
-    handleGetUserDetails()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showUpdateUserData])
+  // useEffect(() => {
+  //   handleGetUserDetails()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [showUpdateUserData])
 
   return (
     <>

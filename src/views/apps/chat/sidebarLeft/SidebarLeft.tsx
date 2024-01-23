@@ -24,7 +24,9 @@ import {
   OutlinedInput,
   InputLabel,
   FormControl,
-  Tooltip
+  InputBase,
+  InputAdornment,
+
 } from '@mui/material'
 
 // images import
@@ -32,6 +34,9 @@ import UserImage from '../../../../assets/Images/user_Icons/light/user_img.png'
 import AddTicket1 from '../../../../assets/Images/user_Icons/light/add-circle1.svg'
 import FileUpload from '../../../../assets/Images/user_Icons/light/file_upload.svg'
 import { API_PATHS } from '../../../../config/api.config'
+import Close from 'mdi-material-ui/Close'
+import Search from '../../../../assets/Images/user_Icons/light/search-normal.svg'
+
 
 //env file
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL
@@ -43,6 +48,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import TicketContext from '../../../../context/TicketProvider'
 import ChatContext from '../../../../context/ChatProvider'
 import { socket } from '../../../../views/apps/chat/chatContent/SocketConnection'
+import { useSettings } from '../../../../@core/hooks/useSettings'
 
 const SidebarLeft = () => {
 
@@ -53,6 +59,10 @@ const SidebarLeft = () => {
   const { getUserImg, setGetUserImg, handleUserUpdate, setdisplayChatUi } = React.useContext<any>(ChatContext)
   const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
   const userId = user.data.userId
+  const { settings } = useSettings()
+  const { mode } = settings
+
+
   const toggleNewCategoryModal = () => {
     setOpen(true)
   }
@@ -79,34 +89,34 @@ const SidebarLeft = () => {
 
   }
 
-  const handleGetUserDetails = async () => {
-    const url = new URL(`${BASE_URL}/${API_VERSION}/${API_PATHS.user}/detail?userId=${userId}`)
-    const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
-    try {
-      const response = await fetch(url.toString(), {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${user.token}`
-        }
-      })
-      const result = await response.json()
+  // const handleGetUserDetails = async () => {
+  //   const url = new URL(`${BASE_URL}/${API_VERSION}/${API_PATHS.user}/detail?userId=${userId}`)
+  //   const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
+  //   try {
+  //     const response = await fetch(url.toString(), {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Accept: 'application/json',
+  //         Authorization: `Bearer ${user.token}`
+  //       }
+  //     })
+  //     const result = await response.json()
 
-      if (result.status == 200) {
-        const data = result.payload.data
-        setUserData(data)
+  //     if (result.status == 200) {
+  //       const data = result.payload.data
+  //       setUserData(data)
 
-        setGetUserImg(data.profilePicture)
-      } else {
-        console.log(result.message)
-      }
-    } catch (ex: any) { }
-  }
-  useEffect(() => {
-    handleGetUserDetails()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [updateuserProfile])
+  //       setGetUserImg(data.profilePicture)
+  //     } else {
+  //       console.log(result.message)
+  //     }
+  //   } catch (ex: any) { }
+  // }
+  // useEffect(() => {
+  //   handleGetUserDetails()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [updateuserProfile])
 
 
 
@@ -114,7 +124,7 @@ const SidebarLeft = () => {
     <>
       <Box
         sx={{
-          width: '22%',
+          width: '32%',
           alignItems: 'start',
           borderRight: '1px solid #e5e5e5',
           display: { xs: 'none', md: 'block' }
@@ -124,15 +134,14 @@ const SidebarLeft = () => {
           container
           justifyContent={'space-between'}
           sx={{
-            padding: { lg: '13.7px 13.7px 13.7px 28.35px', md: '13.7px 13.7px 14.7px 10.35px' },
-            borderBottom: ' 1px solid #e5e5e5',
+            padding: { lg: '13.7px 13.7px 0px 13.7px', md: '13.7px 13.7px 14.7px 10.35px' },
             alignItems: 'center'
 
           }}
         >
           <Grid item sx={{ width: '100%' }}>
             <Grid container sx={{ alignItems: 'center' }}>
-              <Grid item sx={{ mr: { lg: '20px', md: '15px' } }}>
+              {/* <Grid item sx={{ mr: { lg: '20px', md: '15px' } }}>
                 <MuiAvatar
                   src={getUserImg ? getUserImg : UserImage}
                   alt='jeenal'
@@ -144,20 +153,19 @@ const SidebarLeft = () => {
                     cursor: 'pointer'
                   }}
                 />
-              </Grid>
-              <Grid item>
-                <Typography
-                  sx={{
-                    fontFamily: 'Mazzard',
-                    fontWeight: '500',
-                    fontSize: '20px',
-                    color: '#1B0B2B',
-                    lineHeight: '31.74px',
-                    textTransform: 'capitalize',
-                    marginBottom: '-3px'
-                  }}
-                >
-                  <Tooltip title={userData ? `${userData.fname} ${userData.lname}` : ''}>
+              </Grid> */}
+              <Typography
+                sx={{
+                  fontWeight: '500',
+                  fontFamily: 'Mazzard',
+                  textTransform: 'capitalize',
+                  fontSize: '24px',
+                  lineHeight: '32.74px',
+                  color: mode === 'dark' ? '#ffffff' : '#1B0B2B',
+                  ml: 2
+                }}
+              >
+                {/* <Tooltip title={userData ? `${userData.fname} ${userData.lname}` : ''}>
                     <Typography sx={{ fontFamily: 'Mazzard', fontWeight: '500', color: '#444', fontSize: '16px' }}>
                       {userData ? (
                         <>
@@ -169,28 +177,32 @@ const SidebarLeft = () => {
                         'Loading...'
                       )}
                     </Typography>
-                  </Tooltip>
-                </Typography>
+                      </Tooltip> */}
+                Message
+              </Typography>
+              {/* <FormControl sx={{ width: '100%', mt: '7px', px: '5px' }} fullWidth>
+                <InputBase
+                  sx={{ maxWidth: '100%', p: 1.5, border: '1px solid lightgray', borderRadius: '50px', background: '#fff !important', color: '#323A69' }}
+                  placeholder='Search for chats...'
+                  name="search"
+                  fullWidth
+                  // onChange={optimisedVersion}
+                  className="slide-right-search"
+                  startAdornment={
+                    <InputAdornment sx={{ mr: 2, ml: 1 }} position='start'>
+                      <img src={Search} alt='search-img' style={{ width: '19px', height: '19px' }} />
+                    </InputAdornment>
+                  }
+                // endAdornment={
+                //   <InputAdornment sx={{ mr: 3, cursor: 'pointer' }} position='start'>
+                //     <Close fontSize='small' />
+                //   </InputAdornment>
+                // }
+                // onClick={handleHideInputField}
 
-                <Button
-                  className='logOut'
-                  size='small'
-                  onClick={handleLogout}
-                  component={Link}
-                  to='/userlogin'
-                  sx={{
-                    fontFamily: 'Mazzard',
-                    color: '#2D4ACD',
-                    fontSize: '13px',
-                    padding: '0rem',
-                    textTransform: 'capitalize',
-                    fontWeight: '500',
-                    minWidth: '0'
-                  }}
-                >
-                  log out
-                </Button>
-              </Grid>
+                />
+              </FormControl> */}
+
               {/* <Grid item sx={{ marginLeft: 'auto' }}>
                 <IconButton
                   size='small'
@@ -429,7 +441,7 @@ const SidebarLeft = () => {
         </Box>
         {/* {/ end dialogue /} */}
 
-      </Box>
+      </Box >
     </>
   )
 }

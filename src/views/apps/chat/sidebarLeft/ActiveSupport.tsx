@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Grid, Typography, Badge, InputBase, InputAdornment, FormControl } from '@mui/material'
+import { Box, Grid, Typography, Badge, InputBase, InputAdornment, FormControl, Divider } from '@mui/material'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -9,22 +9,47 @@ import ListItem from '@mui/material/ListItem'
 
 //import UserImage from '../../../../assets/Images/user_Icons/light/user_img.png'
 import { API_PATHS, SOCKET_TICKET_REFRESH, USER_ROLE } from '../../../../config/api.config'
-import Search from '../../../../assets/Images/user_Icons/light/search-normal.svg'
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import PhoneMissedIcon from '@mui/icons-material/PhoneMissed';
 import TicketContext from '../../../../context/TicketProvider'
 import ChatContext from '../../../../context/ChatProvider'
-import Close from 'mdi-material-ui/Close'
 
 //import CreateTicket from './CreateTicketBtn'
 import { socket } from '../../../../views/apps/chat/chatContent/SocketConnection'
 import { DefaultProfilePic } from '../../../../views/apps/chat/chatContent/defaultProfilePic'
 import moment from 'moment';
+import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import { makeStyles } from '@material-ui/core/styles';
+import { useSettings } from '../../../../@core/hooks/useSettings'
+import ChatIcon from 'mdi-material-ui/ChatOutline'
 
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL
 const API_VERSION = import.meta.env.VITE_APP_API_VERSION
 const CHAT_URL = import.meta.env.VITE_APP_CHAT_URL
+const useStyles = makeStyles({
+  customTabs: {
+    // minHeight: '60px', // Adjust the value as needed
+    gap: '3rem'
+  },
+  tabLabel: {
+    fontSize: '15px',
+    textTransform: 'capitalize'
+  },
+  tab: {
+    minHeight: '10px',
+
+    // padding: '22px 30px 0px 30px'
+  },
+
+});
+
+
 
 
 function ActiveSupport() {
+  const classes = useStyles();
   const navigate = useNavigate()
   const { agent, setAgentList, setAgent, setOpenTicketDetails, setShowopenTicket, setOffenceTicketCreate, updateuserProfile } = React.useContext<any>(TicketContext)
   const { setScrollerPageVisible, setOnlineStatus, onlineStatus, setMsgConversation, setPage, previousAgentId, setrefreshConversationList, sethandleCallConvList, handleCallConvList, sethandleAgentListUnreadCount, setcheckFirstAgentID, setShowActiveSupport, setShowChat, refreshConversationList, checkFirstAgentID, setdisplayChatUi } = React.useContext<any>(ChatContext)
@@ -36,6 +61,8 @@ function ActiveSupport() {
   const [searchValue, setSearchValue] = React.useState('');
   const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
   const LoggedinuserId = user.data.userId
+  const { settings } = useSettings()
+  const { mode } = settings
   const [mapperClass, setmapperClass] = useState([{
     userId: '',
     UUID: '',
@@ -146,7 +173,7 @@ function ActiveSupport() {
 
 
   const handleShowChatContent = () => {
-    navigate('/user/dashboard')
+    navigate('/chat/user')
     setShowActiveSupport(false)
     setShowChat(true)
   }
@@ -198,8 +225,6 @@ function ActiveSupport() {
   }
 
   const optimisedVersion = useCallback(debounce(handleSearchChange), [])
-
-
 
   //chat conversation List Agent
   const getConversationAgetDetails = async () => {
@@ -370,6 +395,13 @@ function ActiveSupport() {
   }, [onlineStatus])
 
 
+
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
   return (
     <Box>
       {/* responsive craete ticket button */}
@@ -378,8 +410,10 @@ function ActiveSupport() {
       </Grid> */}
       {/* end responsive create ticket button  */}
 
-      <Grid container justifyContent={'space-between'} sx={{ padding: '0px 15px 0 24px', marginTop: '14px' }}>
-        <Grid item sx={isOpened ? { display: 'none' } : {}}>
+      <Grid container className="flex justify-center align-middle  mt-3" sx={{
+        padding: '0px 15px 15px 15px', borderBottom: theme => `1px solid ${theme.palette.divider}`
+      }}>
+        {/* <Grid item sx={isOpened ? { display: 'none' } : {}}>
           <Typography
             sx={{
               fontWeight: '500',
@@ -392,8 +426,8 @@ function ActiveSupport() {
           >
             active support
           </Typography>
-        </Grid>
-        <Grid item sx={isOpened ? { width: '100%' } : {}}>
+        </Grid> */}
+        {/* <Grid item sx={isOpened ? { width: '100%' } : {}}>
           <Box sx={isOpened ? { display: 'none' } : {}}>
 
             <img src={Search} alt='Search' style={{ width: '17px', height: '17px', cursor: 'pointer' }} onClick={handleDisplayInputField} />
@@ -422,7 +456,20 @@ function ActiveSupport() {
               />
             </FormControl>)
             : ''}
-        </Grid>
+        </Grid> */}
+
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="icon position tabs example"
+          className={classes.customTabs}
+
+        >
+          <Tab className={classes.tab} icon={<ChatIcon sx={{ height: '18px', width: '18px' }} />} iconPosition="start" label={<span className={classes.tabLabel}>Chat</span>} />
+          <Tab className={classes.tab} icon={<ContactsOutlinedIcon sx={{ height: '17px', width: '17px' }} />} iconPosition="start" label={<span className={classes.tabLabel}>All</span>} />
+          <Tab className={`${classes.tab}`} icon={<GroupsOutlinedIcon sx={{ height: '17px', width: '17px' }} />} iconPosition="start" label={<span className={classes.tabLabel}>Group</span>}
+          />
+        </Tabs>
       </Grid>
       <Grid sx={{ height: '61vh', overflowY: 'auto' }} ref={listInnerRef} onScroll={handleScroll}>
         {loading ? (
@@ -441,40 +488,49 @@ function ActiveSupport() {
           filteredArray?.map((item: any, id: number) => {
 
             const time = LastTimeOfMessage(item?.updatedAt)
-            if (item.userId != LoggedinuserId)
+            if (item?.userId != LoggedinuserId)
 
               return <>
 
                 <ListItem
-                  className="list-item"
-                  sx={{ borderBottom: ' 1px solid #e5e5e5', paddingBottom: '0', cursor: 'pointer', paddingTop: '0' }}
-                  key={id}
+                  className={`list-item ${item.isSelected ? 'selected-item' : ''} rounded-2xl m-2 `}
+                  sx={{
+                    border: theme => `1px solid ${theme.palette.divider}`, paddingBottom: '0', cursor: 'pointer', paddingTop: '0', width: '95%', '&:hover': { backgroundColor: (theme) => theme.palette.primary.main + '13' }
+                  }}
+                  //  '&:hover': {
+                  //   backgroundColor: (theme) => theme.palette.primary.main + '13', borderLeft: (theme) => `3px solid ${theme.palette.primary.main}`,
+
+                  // }
+                  key={item?.id}
                   onClick={() => {
                     setShowopenTicket(false),
                       setOpenTicketDetails(false),
                       setOffenceTicketCreate(false),
                       handleHideInputField()
-                    user.data.userId != item.userId ?
+                    user?.data?.userId != item?.userId ?
                       (handleShowChatContent(), setdisplayChatUi(true)) : setdisplayChatUi(false)
                   }}
                 >
                   <ListItemButton
                     onClick={() => {
-                      user.data.userId != item.userId ?
+                      user?.data?.userId != item?.userId ?
                         (setPage(1),
                           setScrollerPageVisible(true),
-                          agent?.userId != item.userId ? setMsgConversation([]) : '',
+                          agent?.userId != item?.userId ? setMsgConversation([]) : '',
                           setAgent(item),
                           ConversationListByPreviousAgent(previousAgentId),
-                          item.UnRead > 0 ? sethandleAgentListUnreadCount(true) : sethandleAgentListUnreadCount(false))
+                          item?.UnRead > 0 ? sethandleAgentListUnreadCount(true) : sethandleAgentListUnreadCount(false))
                         : setdisplayChatUi(false)
                     }}
                     disableRipple
                     sx={{
-                      p: '15px 4px',
+                      p: '12px 2px',
                       width: '100%',
                       borderRadius: 1,
-                      alignItems: 'flex-start'
+                      alignItems: 'flex-start',
+                      '&:hover': {
+                        backgroundColor: 'transparent',
+                      },
                     }}
                   >
                     <ListItemAvatar sx={{ m: 0 }}>
@@ -492,14 +548,14 @@ function ActiveSupport() {
                               height: '11px',
                               borderRadius: '50%',
                               border: '2px solid #ffffff',
-                              backgroundColor: item.isOnline == 0 ? '#A0A0A0' : '#0EBF7E'
+                              backgroundColor: item?.isOnline == 0 ? '#A0A0A0' : '#0ea70e'
                             }}
                           />
                         }
                       >
                         <MuiAvatar
-                          src={item.profilePic ? item.profilePic : DefaultProfilePic}
-                          alt={item.fname}
+                          src={item?.profilePic !== "no_pic" ? item?.profilePic : "https://semilynx.gogtas.com/static/media/user_img.d3c64685c1df07b335a7.png"}
+                          alt={item?.fname}
                           sx={{
                             width: 45,
                             height: 45
@@ -521,12 +577,12 @@ function ActiveSupport() {
                             fontFamily: 'Mazzard',
                             fontWeight: 500,
                             fontSize: '16px',
-                            color: 'rgba(27, 11, 43, 0.8)',
+                            color: mode === 'dark' ? '#ffffff' : 'rgba(27, 11, 43, 0.8)',
                             textTransform: 'capitalize',
                             lineHeight: '25.39px'
                           }}
                         >
-                          {item.fname + ' ' + item.lname}
+                          {item?.fname + ' ' + item?.lname}
                         </Typography>
                       }
                       secondary={
@@ -538,10 +594,10 @@ function ActiveSupport() {
                             fontWeight: 500,
                             fontSize: '13px',
                             lineHeight: '14px',
-                            color: 'rgba(33, 16, 50, 0.44)'
+                            color: mode === 'dark' ? '#ffffff' : 'rgba(27, 11, 43, 0.8)',
                           }}
                         >
-                          {item.role == USER_ROLE.USER ? 'Patient' : 'Team Member'}
+                          {item?.role == USER_ROLE.USER ? 'Business Owner' : 'Admin'}
                         </Typography>
                       }
                     />
@@ -558,7 +614,7 @@ function ActiveSupport() {
                         sx={{
                           fontFamily: 'Mazzard',
                           whiteSpace: 'nowrap',
-                          color: 'rgba(27, 11, 43, 0.67)',
+                          color: mode === 'dark' ? '#ffffff' : 'rgba(27, 11, 43, 0.8)',
                           fontSize: ' 11px',
                           fontWeight: '400px',
                           lineHeight: '17.46px'
@@ -582,7 +638,7 @@ function ActiveSupport() {
                             lineHeight: '22px'
                           }}
                         >
-                          {item.UnRead}
+                          {item?.UnRead}
                         </span>
                         : ''
                       }

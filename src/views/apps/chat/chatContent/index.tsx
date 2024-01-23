@@ -5,12 +5,7 @@ import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-
-// import TicketContext from '../context/TicketProvider'
-
 import { Divider, List, ListItem, ListItemText, Drawer, Button } from '@mui/material'
-
-//import react-router-dom
 import { useNavigate } from 'react-router-dom'
 
 // toast popup
@@ -36,13 +31,15 @@ import ChatContext from '../../../../context/ChatProvider'
 import TicketContext from '../../../../context/TicketProvider'
 import ActiveSupport from '../sidebarLeft/ActiveSupport'
 import UserDashboard from '../dashboard/UserDashboard'
+import StickySlider from '../stickySlider/StickySlider'
+import { useSettings } from '../../../../@core/hooks/useSettings'
 
 // import CreateTicketBtn from '../sidebarLeft/CreateTicketBtn'
 
 const ChatContentIndex = () => {
 
   const navigate = useNavigate()
-  const { setShowActiveSupport, showActiveSupport, getUserImg, handleUserUpdate, displayChat } = React.useContext<any>(ChatContext)
+  const { setShowActiveSupport, showActiveSupport, getUserImg, handleUserUpdate, displayChat, collapsed, setCollapsed, toggled, setToggled } = React.useContext<any>(ChatContext)
   const { showopenTicket } = React.useContext<any>(TicketContext)
 
   const [width, setWidth] = useState(window.innerWidth)
@@ -57,7 +54,9 @@ const ChatContentIndex = () => {
     const [open, setOpen] = useState(false)
 
     const toggleSlider = () => {
-      setOpen(!open)
+      //  setOpen(!open)
+      setCollapsed(!collapsed)
+      setToggled(!toggled)
     }
 
     const handleLogout = () => {
@@ -75,6 +74,9 @@ const ChatContentIndex = () => {
     //   setShowActiveSupport(false)
     //   toggleSlider()
     // }
+
+    const { settings } = useSettings()
+    const { mode } = settings
 
     //Responsive sidebar
     const sideList = () => (
@@ -137,14 +139,15 @@ const ChatContentIndex = () => {
           </Grid>
         </Grid>
         <Divider sx={{ margin: 0 }} />
+        <StickySlider />
         <List sx={{ paddingTop: 0 }}>
-          <ListItem sx={{ padding: { xs: '20px 16px', sm: '27px 23px' } }} onClick={handleShowActiveSupport}>
+          {/* <ListItem sx={{ padding: { xs: '20px 16px', sm: '27px 23px' } }} onClick={handleShowActiveSupport}>
             <ListItemText className='responsive-toggle' primary='Active Support' />
             <IconButton size='small' sx={{ color: 'text.secondary' }}>
               <img src={RightArrow} alt='rightArrow' style={{ width: '33px', height: '33px' }} />
             </IconButton>
           </ListItem>
-          <Divider sx={{ margin: 0 }} />
+          <Divider sx={{ margin: 0 }} /> */}
 
           {/* <ListItem sx={{ padding: { xs: '20px 16px', sm: '27px 23px' } }}>
             <ListItemText className='responsive-toggle' primary='Add Room' />
@@ -190,7 +193,7 @@ const ChatContentIndex = () => {
     return (
       <Box
         sx={{
-          backgroundColor: '#ffffff',
+          backgroundColor: '#F3F5F7',
           flexGrow: 1,
           height: '100%'
         }}
@@ -205,7 +208,17 @@ const ChatContentIndex = () => {
             }}
           >
             <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography>Dashboard</Typography>
+              <Typography
+                sx={{
+                  fontWeight: '500',
+                  fontFamily: 'Mazzard',
+                  textTransform: 'capitalize',
+                  fontSize: '19px',
+                  lineHeight: '32.74px',
+                  color: mode === 'dark' ? '#ffffff' : '#1B0B2B',
+                  ml: 2
+                }}
+              >Message</Typography>
             </Grid>
 
             <Grid item>
@@ -225,8 +238,6 @@ const ChatContentIndex = () => {
 
         {showActiveSupport && width < 900 ? (
           <ActiveSupport />
-        ) : showopenTicket && width < 900 ? (
-          ""
         ) : displayChat ?
           (
             <><ChatContent />

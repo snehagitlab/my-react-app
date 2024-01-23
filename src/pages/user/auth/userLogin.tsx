@@ -106,7 +106,7 @@ const LoginDemo = () => {
           localStorage.setItem('user1Role', result.payload.data.userRole)
           localStorage.setItem('user1Data', JSON.stringify(result.payload))
           setLoading(false)
-          navigate('/user/dashboard')
+          navigate('/chat/user')
           const socket = io(`${SOCKET_URL}`, {
             transports: ['websocket'],
             auth: { token: `Bearer ${token}` },
