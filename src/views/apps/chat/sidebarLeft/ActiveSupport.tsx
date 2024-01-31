@@ -24,31 +24,121 @@ import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSettings } from '../../../../@core/hooks/useSettings'
 import ChatIcon from 'mdi-material-ui/ChatOutline'
+import { ChatObject, SocketMessageInterface } from '@/src/interfaces/SocketInterfaces'
 
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL
 const API_VERSION = import.meta.env.VITE_APP_API_VERSION
 const CHAT_URL = import.meta.env.VITE_APP_CHAT_URL
 const useStyles = makeStyles({
   customTabs: {
-    // minHeight: '60px', // Adjust the value as needed
-    gap: '3rem'
+    gap: '3rem',
   },
   tabLabel: {
     fontSize: '15px',
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   },
   tab: {
     minHeight: '10px',
-
-    // padding: '22px 30px 0px 30px'
   },
 
 });
 
-
-
-
+const conversations = [
+  {
+    "_id": "65b21e37b5d120d351328c48",
+    "type": 1,
+    "participants": [
+      "6e6addb9-6c21-4c1e-a9df-0b45535aa117",
+      "e06b3842-4d75-404f-a8de-2120badbb569"
+    ],
+    "createdBy": "e06b3842-4d75-404f-a8de-2120badbb569",
+    "createdAt": "2024-01-25T08:39:19.360Z",
+    "updatedAt": "2024-01-25T08:39:19.360Z",
+    "__v": 0
+  },
+  {
+    "_id": "65b23491bc0ba1b06f8451c9",
+    "type": 1,
+    "name": null,
+    "participants": [
+      "a27475d2-8add-4ab1-9e68-d55bbfccac06",
+      "e06b3842-4d75-404f-a8de-2120badbb569"
+    ],
+    "createdBy": "e06b3842-4d75-404f-a8de-2120badbb569",
+    "createdAt": "2024-01-25T10:14:41.514Z",
+    "updatedAt": "2024-01-25T10:14:41.514Z",
+    "__v": 0
+  },
+  {
+    "_id": "65b23d9d17ef8f41d2aafa99",
+    "type": 1,
+    "name": null,
+    "participants": [
+      "390f0f12-7fa1-46ae-9c4e-55edd31dca50",
+      "e06b3842-4d75-404f-a8de-2120badbb569"
+    ],
+    "createdBy": "e06b3842-4d75-404f-a8de-2120badbb569",
+    "createdAt": "2024-01-25T10:53:17.704Z",
+    "updatedAt": "2024-01-25T10:53:17.704Z",
+    "__v": 0
+  }
+];
+const users = [
+  { "_id": "6e6addb9-6c21-4c1e-a9df-0b45535aa117", "name": "Sneha", "lname": "Patil" },
+  { "_id": "a27475d2-8add-4ab1-9e68-d55bbfccac06", "name": "Jiya", "lname": "Patil" },
+  // ... (other participant objects)
+];
 function ActiveSupport() {
+
+  const [mapper, setmapper] = useState<ChatObject[]>();
+  const LoggedinuserIds: string = "e06b3842-4d75-404f-a8de-2120badbb569"
+  const result = mapper?.map((conversation: ChatObject) => {
+    const participants = conversation.participants;
+    const matchingUser = users.find(user => LoggedinuserIds === user?._id || (participants && participants.includes(user?._id)));
+    if (matchingUser) {
+      return {
+        conversationId: conversation._id,
+        name: matchingUser.name,
+        lname: matchingUser.lname,
+        updatedAt: conversation.updatedAt,
+        receiverId: matchingUser?._id
+      };
+    }
+    return null;
+  }).filter(Boolean); // Remove null values from the result
+
+
+  useEffect(() => {
+    socket.emit("findRoom");
+    socket.on("listRoom", (socketData: ChatObject[]) => {
+      setmapper(socketData);
+    });
+  }, []);
+
+  const [finalConversationList, setFinalConversationList] = useState<({ conversationId: string; name: string; lname: string; updatedAt: string; receiverId: string } | null)[]>();
+  useEffect(() => {
+    const finalArrays = result?.filter(obj => obj?.conversationId !== undefined && obj?.conversationId !== "");
+    finalArrays?.sort((a, b) => {
+      const dateA = a ? new Date(a.updatedAt).getTime() : 0;
+      const dateB = b ? new Date(b.updatedAt).getTime() : 0;
+      return dateB - dateA;
+    });
+    const filteredArr = finalArrays?.filter((obj, index, self) =>
+      self.map(o => o?.conversationId).indexOf(obj?.conversationId) === index
+    );
+
+    // Check if the filteredArrayss is different from the current state before updating
+    if (!arraysAreEqual(filteredArr, finalConversationList)) {
+      setFinalConversationList(filteredArr);
+    }
+
+  }, [result])
+
+  // Utility function to check if two arrays are equal
+  function arraysAreEqual(arr1: any, arr2: any) {
+    return JSON.stringify(arr1) === JSON.stringify(arr2);
+  }
+
   const classes = useStyles();
   const navigate = useNavigate()
   const { agent, setAgentList, setAgent, setOpenTicketDetails, setShowopenTicket, setOffenceTicketCreate, updateuserProfile } = React.useContext<any>(TicketContext)
@@ -81,6 +171,7 @@ function ActiveSupport() {
   const [response, setresponse] = useState<any>()
 
 
+
   useEffect(() => {
     const finalArray = mapperClass.filter(obj => obj.userId !== undefined && obj.userId !== "");
     finalArray.sort((a, b) => {
@@ -98,6 +189,7 @@ function ActiveSupport() {
       setresponse(socket)
     });
   }, []);
+
   useEffect(() => {
     if (response?.isOnline == 1 || response?.isOnline == 0) {
       setOnlineStatus(response)
@@ -134,9 +226,7 @@ function ActiveSupport() {
       const data = result.payload.data
       setmapperClass([])
       if (data.length > 0) {
-
         data.map((item: any) => (
-
           setmapperClass((oldArray: any) => [...oldArray, {
             userId: item.userId,
             fname: item.fname,
@@ -340,28 +430,17 @@ function ActiveSupport() {
     const getDate = date.getDate()
     const today = new Date();
     const getToday = today.getDate()
-
-    //const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     if (getDate == getToday) {
       const formatted_time = moment(date).format('hh:mm');
-
-      //`${date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}`
-
       return formatted_time
-
     }
     else {
       const diffDays = today.getDate() - date.getDate();
       if (diffDays == 1 || diffDays == 2 || diffDays == 3 || diffDays == 4 || diffDays == 5 || diffDays == 6 || diffDays == 7) {
         return moment(date).format('ddd');
-
       }
       else {
-
         return moment(date).format('DD-MM-YY');
-
-        // date.getDate() + '-' + date.getMonth() + 1 + '-' + date.getFullYear()
-
       }
     }
 
@@ -391,7 +470,6 @@ function ActiveSupport() {
       setfilteredArray(filteredArray)
       setOnlineStatus()
     }
-
   }, [onlineStatus])
 
 
@@ -411,7 +489,7 @@ function ActiveSupport() {
       {/* end responsive create ticket button  */}
 
       <Grid container className="flex justify-center align-middle  mt-3" sx={{
-        padding: '0px 15px 15px 15px', borderBottom: theme => `1px solid ${theme.palette.divider}`
+        padding: '0px 15px 0px 15px', borderBottom: theme => `1px solid ${theme.palette.divider}`
       }}>
         {/* <Grid item sx={isOpened ? { display: 'none' } : {}}>
           <Typography
@@ -467,7 +545,7 @@ function ActiveSupport() {
         >
           <Tab className={classes.tab} icon={<ChatIcon sx={{ height: '18px', width: '18px' }} />} iconPosition="start" label={<span className={classes.tabLabel}>Chat</span>} />
           <Tab className={classes.tab} icon={<ContactsOutlinedIcon sx={{ height: '17px', width: '17px' }} />} iconPosition="start" label={<span className={classes.tabLabel}>All</span>} />
-          <Tab className={`${classes.tab}`} icon={<GroupsOutlinedIcon sx={{ height: '17px', width: '17px' }} />} iconPosition="start" label={<span className={classes.tabLabel}>Group</span>}
+          <Tab className={`${classes.tab}`} icon={<GroupsOutlinedIcon sx={{ height: '20px', width: '20px' }} />} iconPosition="start" label={<span className={classes.tabLabel}>Group</span>}
           />
         </Tabs>
       </Grid>
@@ -479,13 +557,13 @@ function ActiveSupport() {
           <Box sx={{ paddingTop: '12rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div className="loading">Loading...</div>
           </Box>
-        ) : filteredArray?.length === 0 ? (
+        ) : finalConversationList?.length === 0 ? (
           <Box sx={{ paddingTop: '12rem', display: 'flex', justifyContent: 'center', alignItems: 'center', whiteSpace: 'normal' }}>
             <Typography sx={{ textAlign: 'center', padding: '0px 50px' }}>{displaemptyMessage ? displaemptyMessage : ''}</Typography>
           </Box>
         ) : (
 
-          filteredArray?.map((item: any, id: number) => {
+          finalConversationList?.map((item: any, id: number) => {
 
             const time = LastTimeOfMessage(item?.updatedAt)
             if (item?.userId != LoggedinuserId)
@@ -554,8 +632,8 @@ function ActiveSupport() {
                         }
                       >
                         <MuiAvatar
-                          src={item?.profilePic !== "no_pic" ? item?.profilePic : "https://semilynx.gogtas.com/static/media/user_img.d3c64685c1df07b335a7.png"}
-                          alt={item?.fname}
+                          src={item?.profilePic !== "no_pic" ? "https://semilynx.gogtas.com/static/media/user_img.d3c64685c1df07b335a7.png" : "https://semilynx.gogtas.com/static/media/user_img.d3c64685c1df07b335a7.png"}
+                          alt={item?.name}
                           sx={{
                             width: 45,
                             height: 45
@@ -582,7 +660,7 @@ function ActiveSupport() {
                             lineHeight: '25.39px'
                           }}
                         >
-                          {item?.fname + ' ' + item?.lname}
+                          {item?.name + ' ' + item?.lname}
                         </Typography>
                       }
                       secondary={
