@@ -127,15 +127,17 @@ const SidebarLeft = () => {
           width: '32%',
           alignItems: 'start',
           borderRight: '1px solid #e5e5e5',
-          display: { xs: 'none', md: 'block' }
+          display: { xs: 'none', md: 'block' },
+
         }}
       >
         <Grid
           container
           justifyContent={'space-between'}
           sx={{
-            padding: { lg: '13.7px 13.7px 0px 13.7px', md: '13.7px 13.7px 14.7px 10.35px' },
-            alignItems: 'center'
+            padding: { lg: '20.7px 13.7px 20.7px 13.7px', md: '13.7px 13.7px 14.7px 10.35px' },
+            alignItems: 'center',
+            backgroundColor: (theme) => theme.palette.primary.main + '13',
 
           }}
         >

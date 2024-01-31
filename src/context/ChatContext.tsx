@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useState } from 'react'
 import ChatContext from './ChatProvider'
+import { useMediaQuery } from 'react-responsive';
 
 const defaultStyle = {
   width: '100%',
@@ -14,13 +15,16 @@ const defaultStyle = {
 }
 
 const ChatState = (props: any) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 }); // Adjust the breakpoint as needed
   const [showActiveSupport, setShowActiveSupport] = useState(true)
   const [userLogin, setuserLogin] = useState()
   const [getUserImg, setGetUserImg] = useState<any>()
   const [showChat, setShowChat] = useState(false)
   const [updateUserStyle, setupdateUserStyle] = useState<any>(defaultStyle)
   const [collapsed, setCollapsed] = React.useState(true);
-  const [toggled, setToggled] = React.useState(true);
+  const [toggled, setToggled] = React.useState(!isMobile);
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
+  const [showThemeComponent, setShowThemeComponent] = useState(false)
 
 
   const handleUserUpdate = () => {
@@ -116,7 +120,11 @@ const ChatState = (props: any) => {
           collapsed,
           setCollapsed,
           toggled,
-          setToggled
+          setToggled,
+          drawerOpen,
+          setDrawerOpen,
+          showThemeComponent,
+          setShowThemeComponent
         }}
       >
         {props.children}
