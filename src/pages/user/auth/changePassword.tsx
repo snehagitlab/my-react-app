@@ -27,7 +27,8 @@ interface IAddUserAgentModalProps {
   onClose: any
 }
 
-//env file
+//env fileee
+// didhd
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL
 const API_VERSION = import.meta.env.VITE_APP_API_VERSION
 
