@@ -193,7 +193,7 @@ const ChatContentIndex = () => {
     return (
       <Box
         sx={{
-          backgroundColor: '#F3F5F7',
+          // backgroundColor: '#F3F5F7',
           flexGrow: 1,
           height: '100%'
         }}

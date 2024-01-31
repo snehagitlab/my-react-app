@@ -54,20 +54,13 @@ const StickySlider = () => {
     //     },
     // };
 
-    // hex to rgba converter
-    const hexToRgba = (hex: string, alpha: number) => {
-        const r = parseInt(hex.slice(1, 3), 16);
-        const g = parseInt(hex.slice(3, 5), 16);
-        const b = parseInt(hex.slice(5, 7), 16);
 
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    };
 
     const [broken, setBroken] = React.useState(true);
 
     const menuItemStyles: MenuItemStyles = {
         root: {
-            fontSize: '16px',
+            fontSize: '15px',
             fontWeight: 500,
         },
         SubMenuExpandIcon: {
@@ -101,16 +94,18 @@ const StickySlider = () => {
                 >
                     <Box className="flex flex-col justify-between h-full">
                         <Box>
-                            <SidebarHeader className="mb-[40px] mt-[16px]" />
+                            <SidebarHeader className="mb-[40px] mt-[16px]" style={{ border: `2px solid ${theme.palette.primary.main}` }} />
                             <Box className="mb-[32px]">
                                 <Menu menuItemStyles={menuItemStyles}>
                                     {/* suffix={<Badge variant="success">New</Badge>} */}
                                     {menuItemData.map((item, index) => (
                                         <MenuItem key={index}
                                             onClick={() => handleMenuClick(index)}
-                                            className={`flex flex-col align-middle justify-center`} style={{ opacity: `${activeMenu !== index ? 0.6 : 1}` }}>
-                                            <div className={` flex items-center justify-center`}>{item.icon}</div>
-                                            <div>{item.label}</div>
+                                            className={`flex flex-col align-middle justify-center`} style={{
+                                                paddingTop: 1, backgroundColor: activeMenu !== index ? "" : theme.palette.primary.main + 43
+                                            }}>
+                                            <div className={` flex items-center justify-center mt-[3px]`}>{item.icon}</div>
+                                            <Box sx={{ color: (theme: any) => theme.palette.primary.main, fontSize: '15px', fontWeight: `${activeMenu !== index ? 400 : 600}` }} >{item.label}</Box>
 
                                         </MenuItem >
                                     ))}

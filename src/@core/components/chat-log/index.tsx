@@ -31,6 +31,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import MicroPhoneSelected from '../../../assets/Images/user_Icons/light/microphone_selected.png';
 import { Close } from 'mdi-material-ui'
 import { MessageItem } from './types'
+import { SocketMessageInterface } from 'src/interfaces/SocketInterfaces'
 
 const CHAT_URL = import.meta.env.VITE_APP_CHAT_URL
 
@@ -39,7 +40,7 @@ function Index() {
   const { agent } = useContext<any>(TicketContext)
   const { previousAgentIdState, ScrollerPageVisible, setScrollerPageVisible, msgConversation, setMsgConversation, page, setPage, setPreviousAgentId, setrefreshConversationList, setcheckFirstAgentID, handleAgentListUnreadCount, sethandleCallConvList } = useContext<any>(ChatContext)
   const user = JSON.parse(localStorage.getItem('user1Data') || '{}')
-  const senderId = user?.data?.userId
+  const senderId = 'e06b3842-4d75-404f-a8de-2120badbb569' //user?.data?.userId
   const messagesEndRef = useRef<any>(null)
   const theme = useTheme()
   const [msg, setMsg] = useState<string>('')
@@ -49,8 +50,9 @@ function Index() {
   const [record, setRecord] = useState<any>(12)
   const { settings } = useSettings()
   const { mode } = settings
+  const microphoneRef: any = useRef(null)
 
-
+  console.log(JSON.stringify(msgConversation) + "<<<<")
   useEffect(() => {
     if (msgConversation && msgConversation?.length > 0) {
       msgConversation.filter((obj: any, index: any, self: any) =>
@@ -60,7 +62,7 @@ function Index() {
 
 
   useEffect(() => {
-    socket.on("message", (socket: any) => {
+    socket.on("message", (socket: SocketMessageInterface) => {
       setresponse(socket)
     });
   }, []);
@@ -83,12 +85,16 @@ function Index() {
 
   const handleSendMsg = async (e: any) => {
     e.preventDefault()
+
     if (msg.trim() != '') {
       setLoader(true)
       const shoeMsgData = {}
-      Object.assign(shoeMsgData, { message: msg.trim() })
+      Object.assign(shoeMsgData, { receiver_id: agent?.receiverId })
+      Object.assign(shoeMsgData, { sender_id: senderId })
+      Object.assign(shoeMsgData, { content: msg.trim() })
+      Object.assign(shoeMsgData, { conversation_id: agent?.conversationId })
       Object.assign(shoeMsgData, { createdAt: new Date() })
-      Object.assign(shoeMsgData, { senderId: senderId })
+      socket.emit("createMessage", shoeMsgData)
       setMsgConversation((oldArray: any) => [shoeMsgData, ...oldArray])
       BottomScrollheight()
       setLoader(false)
@@ -185,9 +191,15 @@ function Index() {
   }
 
   useEffect(() => {
-    if (agent?.userId > 0) {
+    if (agent?.conversationId !== "" && agent?.conversationId !== undefined) {
       setMsg('')
-      getConversationDetails()
+      //getConversationDetails()
+      socket.emit("joinRoom", { "room_id": agent?.conversationId });
+      socket.on("joinedRoom", (socketData: any) => {
+        console.log("Joined Room Data ", socketData);
+        setMsgConversation(socketData)
+      });
+
     }
     else { setMsgConversation([]) }
   }, [agent, page])
@@ -277,19 +289,18 @@ function Index() {
   const [anchorElListening, setAnchorElListening] = React.useState<HTMLButtonElement | null>(null)
   const { transcript, resetTranscript } = useSpeechRecognition({ commands })
   const [isListening, setIsListening] = useState(false)
-  const microphoneRef: any = useRef(null)
   const openListening = Boolean(anchorElListening)
   const idListening = openListening ? 'simple-popover' : undefined
   const handleListing = () => {
     setIsListening(true)
-    microphoneRef.current.classList.add('listening')
+    microphoneRef?.current?.classList?.add('listening')
     SpeechRecognition.startListening({
       continuous: true
     })
   }
 
   const stopHandle = () => {
-    microphoneRef.current.classList.remove('listening')
+    microphoneRef?.current?.classList?.remove('listening')
     SpeechRecognition.stopListening()
     setMsg((prevState: any) => [...prevState, transcript].toString().replace(/,/g, ''))
     handleCloseListening()
@@ -403,8 +414,8 @@ function Index() {
         //   position: 'relative'
 
         // }}
-        sx={{ width: '100%', height: { md: 'calc(100% - 86px)' }, backgroundColor: (theme) => theme.palette.primary.main + '13', }}
-        className={`justify-center border border-solid border-[#F4F4F8] sm:rounded-md xs:rounded-md md:rounded-none`}
+        sx={{ width: '100%', height: { md: 'calc(100% - 86px)' } }}
+        className={`justify-center border border-solid border-[#F4F4F8] bg-white sm:rounded-md xs:rounded-md md:rounded-none`}
 
       >
         <Box className='chat-div'
@@ -444,17 +455,15 @@ function Index() {
                 {msgConversation?.length > 0 ?
                   msgConversation.map((item: any, key: any) => {
                     const time = LastTimeOfMessage(item?.createdAt)
-
-                    return item?.senderId == senderId ?
+                    console.log(item?.sender_id + "===" + senderId);
+                    return item?.sender_id === senderId ?
                       <Grid container className='senderMsg' position={'relative'} display={'flex'} flexDirection={'column'} alignItems={'end'} ref={messagesEndRef} >
                         <Grid item key={key} sx={{ maxWidth: '70%' }}>
                           <Grid container flexDirection={'column'} sx={{ alignItems: 'end', wordBreak: 'break-all' }}>
-
                             <Grid item
                               onMouseEnter={() => handleMouseEnter(item?.uuid)}
                               onMouseLeave={handleMouseLeave}
                             >
-
                               <Typography
                                 variant='body2'
                                 sx={{
@@ -472,7 +481,7 @@ function Index() {
                                 }}
 
                               >
-                                {item?.message}
+                                {item?.content}
                               </Typography>
                               {isHovered == item?.uuid && (
                                 <MoreInfoComponent />
@@ -498,7 +507,7 @@ function Index() {
                         </Grid>
                       </Grid>
 
-                      : item?.senderId == agent?.userId ?
+                      : item?.sender_id === agent?.receiverId ?
 
                         <>
                           <Grid container className='receiverMsg' sx={{ flexWrap: 'nowrap', maxWidth: '70%' }} key={key} ref={messagesEndRef}
@@ -517,18 +526,18 @@ function Index() {
                                       variant='body2'
                                       sx={{
                                         display: 'inline-block',
-                                        background: 'white',
+                                        backgroundColor: (theme) => theme.palette.primary.main + '13',
                                         padding: '10px 13px',
                                         fontSize: '14px',
                                         fontWeight: '600',
                                         fontFamily: 'Mazzard-Regular',
-                                        margin: '5px 0 0',
+                                        margin: '3px 0 0',
                                         borderRadius: '15px 15px 15px 0',
                                         whiteSpace: "pre-wrap",
-                                        color: mode === 'dark' ? (theme) => theme.palette.primary.main : '000000b0'
+                                        color: (theme) => theme.palette.primary.main
                                       }}
                                     >
-                                      {item?.message}
+                                      {item?.content}
                                     </Typography>
                                     {isHovered == item?.uuid && (
                                       <MoreInfoComponent />
@@ -615,7 +624,6 @@ function Index() {
                     />
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'end' }}>
-
                     {loder ?
                       <>
                         <LoadingButton
@@ -709,10 +717,10 @@ function Index() {
             >
               <img src={MicroPhoneSelected} alt='microphone' style={{ width: '20px', height: '20px' }} />
             </IconButton>
-            <Typography>Speech to text converter</Typography>
+            <Typography>Speek now</Typography>
           </Grid>
           <Grid item onClick={handleCloseListingPopover} sx={{ cursor: 'pointer', position: 'absolute', left: '96%', top: '-14%' }}>
-            <Close sx={{ widht: '19px', height: '19px' }} />
+            <Close sx={{ width: '19px', height: '19px' }} />
           </Grid>
         </Grid>
         <Grid container spacing={2} justifyContent={'center'} sx={{ marginTop: '15px !important', paddingBottom: '5px', width: '100%' }}>
@@ -739,15 +747,15 @@ function Index() {
               sx={{
                 fontWeight: '500',
                 fontSize: '13px',
-                border: '1px solid #ff0000a6',
+                border: `1px solid ${theme.palette.primary.main}`,
                 borderRadius: '9px ',
                 filter: 'drop-shadow(0px 17px 24px rgba(255, 113, 52, 0.25))',
                 p: '13px 28px',
                 mt: '10px',
                 textTransform: 'capitalize',
-                color: '#ff0000a6',
+                color: `${theme.palette.primary.main}`,
                 '&:hover': {
-                  border: '1px solid #ff0000a6'
+                  border: `1px solid ${theme.palette.primary.main}`,
                 }
               }}
             >
@@ -766,9 +774,10 @@ function Index() {
                 p: '13px',
                 mt: '10px',
                 textTransform: 'capitalize',
-                backgroundColor: '#ff0000a6',
+                color: '#fff',
+                backgroundColor: `${theme.palette.primary.main}`,
                 '&:hover': {
-                  backgroundColor: '#ff0000a6'
+                  backgroundColor: `${theme.palette.primary.main}`,
                 }
               }}
             >

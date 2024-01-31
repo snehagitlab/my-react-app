@@ -29,7 +29,6 @@ function ChatContent() {
       agent.isOnline == response?.isOnline
       if (agent.userId == response?.userId) {
         agent.isOnline == response?.isOnline
-
       }
     }
 
@@ -51,8 +50,7 @@ function ChatContent() {
         borderBottom: { sm: 'none', xs: 'none', md: 'none' },
         borderBottomLeftRadius: '-30px',
         // borderBottomRightRadius: '30px',
-        backgroundColor: '#fff',
-
+        backgroundColor: (theme) => theme.palette.primary.main + '13'
 
       }}
     >
@@ -76,7 +74,7 @@ function ChatContent() {
                 textTransform: 'capitalize'
               }}
             >
-              {agent && agent.fname}&nbsp;{agent && agent.lname}
+              {agent && agent.name}&nbsp;{agent && agent.lname}
             </Typography>
             <Typography
               sx={{

@@ -1,11 +1,14 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Typography } from './Typography';
 import ProfilePic from "../../../../../assets/Images/profilepic.jpg"
+import ChatContext from '../../../../../context/ChatProvider';
 
 interface SidebarHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
   rtl?: boolean;
+  style?: { border?: any };
+
 }
 
 const StyledSidebarHeader = styled.div`
@@ -47,12 +50,14 @@ const StyledSidebarHeader = styled.div`
 //     `}
 ;
 
-export const SidebarHeader: React.FC<SidebarHeaderProps> = ({ children, rtl, ...rest }) => {
+export const SidebarHeader: React.FC<SidebarHeaderProps> = ({ children, rtl, style, ...rest }) => {
+  const { setDrawerOpen, setShowThemeComponent } = useContext<any>(ChatContext)
+
   return (
     <StyledSidebarHeader {...rest}>
-      <div className='mt-5 cursor-pointer'>
-        <img className="w-14 h-14 rounded-full mx-auto" src={ProfilePic} alt="" />
-        <Typography style={{ fontSize: '14px', fontWeight: '600', marginTop: '2px', marginLeft: '5px' }} >Hazel Oscar.</Typography>
+      <div className='mt-5 cursor-pointer' onClick={() => { setDrawerOpen(true), setShowThemeComponent(false) }} >
+        <img className={`w-14 h-14 rounded-full mx-auto p-1 `} style={style} src={ProfilePic} alt="" />
+        <Typography style={{ fontSize: '14px', fontWeight: '600', marginTop: '2px', marginLeft: '9  px' }} >Hazel O.</Typography>
       </div>
     </StyledSidebarHeader>
   );

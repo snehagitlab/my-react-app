@@ -400,10 +400,11 @@ input::-webkit-inner-spin-button {
   position: absolute;
   top: 0;
   left: 0;
-  background: #ff0000a6;
+  background: #ff0000;
+  border: '1px sold #ff0000a6';
   border-radius: 50%;
-  /* transform: scale(1);
-  animation: mymove 0.5s infinite alternate; */
+  transform: scale(1);
+  animation: mymove 0.5s infinite alternate;
   z-index: -1;
 }
 
@@ -1183,7 +1184,7 @@ a.Kbredirection {
 
 /* Tab indicator display none */
 .MuiTabs-indicator {
-  display: none;
+  margin-bottom: 9px !important;
 }
 
 /* .Mui-selected {
